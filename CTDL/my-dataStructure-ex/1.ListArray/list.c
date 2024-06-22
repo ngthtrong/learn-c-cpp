@@ -7,7 +7,7 @@ typedef struct List
 } List;
 void intersection(List l1, List l2, List *pl)
 {
-   makenullList(pl);
+   makeNullList(pl);
    for (int i = 0; i < l1.Last; i++)
    {
       if (member(l1.Elements[i], l2))
@@ -21,7 +21,7 @@ void intersection(List l1, List l2, List *pl)
 }
 void difference(List l1, List l2, List *pl)
 {
-   makenullList(pl);
+   makeNullList(pl);
    for (int i = 0; i < l1.Last; i++)
    {
       if (!member(l1.Elements[i], l2))
@@ -60,7 +60,7 @@ void removeAll(int x, List *pl)
       position = locate(x, *pl);
    }
 }
-void makenullList(List *pl)
+void makeNullList(List *pl)
 {
    pl->Last = 0;
 }
@@ -89,15 +89,15 @@ void deleteList(int p, List *pl)
 }
 void copyEvenNumbers(List l1, List *l2)
 {
-   makenullList(l2);
-   //   int temp=1;
+   makeNullList(l2);
+   // int temp = 1;
    for (int i = 0; i < l1.Last; i++)
    {
       if (l1.Elements[i] % 2 == 0)
       {
          insertList(l1.Elements[i], l2->Last + 1, l2);
-         //  insertList(l1.Elements[i],temp,l2);
-         //  temp++;
+         // insertList(l1.Elements[i], temp, l2);
+         // temp++;
       }
    }
 }
@@ -134,21 +134,21 @@ void deleteList(int p, List *pl)
       }
       pl->Last--;
    }
-   void printList(List l1)
+}
+void printList(List l1)
+{
+   if (l1.Last)
    {
-      if (l1.Last)
+      for (int i = 0; i < l1.Last; i++)
       {
-         for (int i = 0; i < l1.Last; i++)
-         {
-            printf("%d ", l1.Elements[i]);
-         }
-         printf("\n");
+         printf("%d ", l1.Elements[i]);
       }
+      printf("\n");
    }
 }
 void copyEvenNumbers(List l1, List *l2, int flag)
 {
-   makenullList(l2);
+   makeNullList(l2);
    for (int i = 0; i < l1.Last; i++)
    {
       if (l1.Elements[i] % 2 == flag)
@@ -159,7 +159,7 @@ void copyEvenNumbers(List l1, List *l2, int flag)
 }
 void readSet(List *l)
 {
-   makenullList(l);
+   makeNullList(l);
    int n;
    scanf("%d", &n);
    for (int i = 0; i < n; i++)
@@ -205,10 +205,10 @@ void insertList(int x, int p, List *pl)
 }
 void erase(int x, List *pl)
 {
-   int posi = locate(x, *pl);
-   if (posi > 0 && posi <= pl->Last)
+   int position = locate(x, *pl);
+   if (position > 0 && position <= pl->Last)
    {
-      deleteList(posi, pl);
+      deleteList(position, pl);
       erase(x, pl);
    }
 }
@@ -217,10 +217,10 @@ int main()
    List L1, temp;
    readList(&L1);
    printList(L1);
-   copyEvenNumbers(L1, &temp, 1);
+   copyEvenNumbers(L1, &temp);
    if (temp.Last)
       printList(temp);
-   copyEvenNumbers(L1, &temp, 0);
+   copyEvenNumbers(L1, &temp);
    if (temp.Last)
       printList(temp);
 }
