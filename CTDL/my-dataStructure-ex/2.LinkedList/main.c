@@ -9,3 +9,5 @@ typedef struct List
    SinhVien A[40];
    int n;
 } List;
+
+// /test command git hub
