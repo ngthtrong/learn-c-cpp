@@ -62,15 +62,42 @@ void sort(List *pl)
 
 void printOddNumbers(List l)
 {
+  int flag = 0;
   while (l->Next != NULL)
   {
-    if (l->Next->Element % 2 == 1)
+    if (l->Next->Element % 2 != 0)
     {
+      flag = 1;
       printf("%d ", l->Next->Element);
     }
     l = l->Next;
   }
-  printf("\n");
+  flag ? printf("\n") : printf("DS rong\n");
+}
+void getEvenNumbers(List l, List *rs)
+{
+  while (l->Next != NULL)
+  {
+    if (l->Next->Element % 2 == 0)
+    {
+      append(l->Next->Element, rs);
+    }
+    l = l->Next;
+  }
+}
+void printEvenNumbers(List l)
+{
+  int flag = 0;
+  while (l->Next != NULL)
+  {
+    if (l->Next->Element % 2 == 0)
+    {
+      flag = 1;
+      printf("%d ", l->Next->Element);
+    }
+    l = l->Next;
+  }
+  flag ? printf("\n") : printf("DS rong\n");
 }
 void readList(List *pl)
 {
@@ -202,6 +229,19 @@ List difference(List l1, List l2)
     l1 = l1->Next;
   }
   return l;
+}
+void printList(List l)
+{
+  if (l->Next == NULL)
+  {
+    printf("DS rong\n");
+    return;
+  }
+  while (l->Next != NULL)
+  {
+    printf("%d ", l->Next->Element);
+  }
+  printf("\n");
 }
 //===============================Copilot=======================//
 void makenullList(List *pl)
