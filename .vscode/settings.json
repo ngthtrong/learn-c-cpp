@@ -1,6 +1,8 @@
 {
    "C_Cpp.errorSquiggles": "disabled",
    "files.associations": {
-      "string.h": "c"
+      "*.json": "jsonc",
+      "string.h": "c",
+      "stdlib.h": "c"
    }
 }

@@ -103,16 +103,61 @@ void chuyenHauto(char trungto[], char hauto[])
     pop(&s);
     isEmpty = emptyStack(s);
   }
-  hauto[j]='\0';
+  hauto[j] = '\0';
+}
+
+void inThaplucphan(int n)
+{
+  Stack s;
+  makenullStack(&s);
+  for (int i = n; i != 0; i /= 16)
+  {
+    int r = (i % 16);
+    if (r <= 9)
+      r += 48;
+    else
+      r += 55;
+    char temp = r;
+    push(temp, &s);
+  }
+  for (int isEmpty = emptyStack(s); !isEmpty; isEmpty = emptyStack(s))
+  {
+    char temp = top(s);
+    printf("%c", temp);
+    pop(&s);
+  }
+}
+
+int ktChuoi()
+{
+  char st[50];
+  fgets(st, 50, stdin);
+  if (st[strlen(st) - 1] == '\n')
+    st[strlen(st) - 1] = '\0';
+  Stack s;
+  makenullStack(&s);
+  for (int i = 0; st[i] != '\0'; i++)
+  {
+    if (st[i] == '(')
+      push('(', &s);
+    else if (st[i] == ')')
+    {
+      int isEmpty = emptyStack(s);
+      if (!isEmpty)
+        pop(&s);
+      else
+        return 0;
+    }
+  }
+  int isEmpty = emptyStack(s);
+  if (!isEmpty)
+    return 0;
+  else
+    return 1;
 }
 
 //------------------//
 int main()
 {
-  char st[50];
-  fgets(st, 50, stdin);
-  if (st[strlen(st) - 1] == '\n')
-  {
-    st[strlen(st) - 1] = '\0';
-  }
+  printf("%d", 0 % 16);
 }
