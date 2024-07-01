@@ -23,7 +23,6 @@ void makenullQueue(Queue *pQ)
   pQ->Front = Header;
   pQ->Rear = Header;
 }
-
 void deQueue(Queue *q)
 {
   if (q->Front->Next == NULL)
