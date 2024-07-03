@@ -29,7 +29,7 @@ void deQueue(Queue *q)
 }
 void enQueue(int x, Queue *q)
 {
-  if (q->Front == 0 &&q->Rear = 9)
+  if (q->Front == 0 &&q->Rear == 9)
     printf("Hang day.");
   else
   {
