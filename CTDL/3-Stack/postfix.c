@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 //------------------//
 typedef struct
 {
   char Elements[30];
   int Top_idx;
 } Stack;
+
+
+
+
+
+
 
 float tinhGiatri(char st[])
 {
@@ -166,18 +173,19 @@ int main()
 
 int emptyStack(Stack s)
 {
-  if (s.elements[s.top-1])
+  if (s.Elements[s.Top_idx - 1])
     return 1;
   else
     return 0;
-return -1;
+  return -1;
 }
-int mucUutien(char op){
-   if (op=='+' || op=='-')
-       return 1;
-   else if (op=='*' || op=='/')
-       return 2;
-    return -1;
+int mucUutien(char op)
+{
+  if (op == '+' || op == '-')
+    return 1;
+  else if (op == '*' || op == '/')
+    return 2;
+  return -1;
 }
 void to_posfix(char trungto[], char hauto[])
 {
