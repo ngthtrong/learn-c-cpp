@@ -67,17 +67,13 @@ int main()
   fgets(key, 10, stdin);
   if (key[strlen(key) - 1] == '\n')
     key[strlen(key) - 1] = '\0';
-
   for (int i = 0; i < strlen(key); i++)
   {
     int n = key[i] - 48;
     enQueue(n, &q);
   }
-
-
   for (int i = 0; i < strlen(str); i++)
   {
-
     str[i] -= q.Elements[q.Front];
     enQueue(q.Elements[q.Front], &q);
     deQueue(&q);

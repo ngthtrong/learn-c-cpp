@@ -11,7 +11,6 @@ typedef struct
   ElementType Elements[MaxLength];
   int Top_idx;
 } Stack;
-
 void push(ElementType x, Stack *pS)
 {
   if (pS->Top_idx == 0)
@@ -22,7 +21,6 @@ void push(ElementType x, Stack *pS)
     pS->Elements[pS->Top_idx] = x;
   }
 }
-
 ElementType pop(Stack *pS)
 {
   if (pS->Top_idx == MaxLength)
@@ -36,11 +34,10 @@ ElementType pop(Stack *pS)
   }
   return 'e';
 }
-
-// int topStack(Stack s)
-// {
-//   return s.Elements[s.Top_idx - 1];
-// }
+int topStack(Stack s)
+{
+  return s.Elements[s.Top_idx - 1];
+}
 //=========QUEUE===========//
 typedef struct
 {
