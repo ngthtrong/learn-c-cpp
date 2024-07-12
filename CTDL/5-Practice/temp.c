@@ -4,7 +4,5 @@
 
 int main()
 {
-  char key = 'A';
-  // key =98;
-  printf("%d", key>=97&&key<=122);
+  printf("helo casi concac\n");
 }
