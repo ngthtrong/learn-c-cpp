@@ -7,8 +7,8 @@ typedef struct
 {
   int DuLieu[MaxLength];
   int Dinh;
-} Stack;
-int ktDay(Stack s)
+} NganXep;
+int ktDay(NganXep s)
 {
   if (s.Dinh == 0)
     return 1;
