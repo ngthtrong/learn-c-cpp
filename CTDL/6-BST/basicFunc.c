@@ -142,9 +142,36 @@ void insertNode(int x, Tree *tr)
   }
 }
 
-void posOeder(Tree tr)
+void posOrder(Tree tr)
 {
-  
+  if (tr != NULL)
+  {
+    posOrder(tr->Left);
+    posOrder(tr->Right);
+    printf("%d ", &tr->Key);
+  }
+}
+
+int getHeight(Tree tr)
+{
+  if (tr != NULL)
+  {
+    if (tr->Left != NULL && tr->Right != NULL)
+    {
+      int tempR = getHeight(tr->Right);
+      int tempL = getHeight(tr->Left);
+      return 1 + (tempR > tempL ? tempR : tempL);
+    }
+    else if (tr->Left != NULL)
+      return 1 + getHeight(tr->Left);
+    else
+      return 1 + getHeight(tr->Right);
+  }
+  return -1;
+}
+
+void deleteNode(int x, Tree *tr)
+{
 }
 
 int main()
