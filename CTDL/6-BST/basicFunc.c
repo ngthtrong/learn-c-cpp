@@ -3,7 +3,7 @@
 
 struct Node
 {
-  int Key, key;
+  int Key, key,Data;
   struct Node *Left, *Right, *left, *right;
 };
 typedef struct Node *Tree;
@@ -216,7 +216,6 @@ int get_height(Tree tr)
 {
   if (tr != NULL)
   {
-
     if (tr->left != NULL && tr->right != NULL)
     {
       int tempR = get_height(tr->right);
@@ -243,18 +242,20 @@ int hNode(int x, Tree tr)
     {
       if (tr->Left != NULL && tr->Right != NULL)
       {
-        int tempR = hNode(x,tr->Right);
-        int tempL = hNode(x,tr->Left);
-        return 1 + (tempR > tempL ? tempR : tempL);
+        int tempR = hNode(tr->Right->Key, tr->Right);
+        int tempL = hNode(tr->Left->Key, tr->Left);
+        return 1 + (tempR >= tempL ? tempR : tempL);
       }
       else if (tr->Left != NULL)
-        return 1 + hNode(x,tr->Left);
+        return 1 + hNode(tr->Left->Key, tr->Left);
+      else if (tr->Right != NULL)
+        return 1 + hNode(tr->Right->Key, tr->Right);
       else
-        return 1 + hNode(x,tr->Right);
+        return 0;
     }
-    return-1;
+    return -1;
   }
-  return 0;
+  return -1;
 }
 
 void deleteNode(int x, Tree *tr)
@@ -298,45 +299,61 @@ void deleteNode(int x, Tree *tr)
   }
 }
 
-Tree delete_node(int x, Tree *tr)
+Tree delete_node(int x, Tree root)
 {
-  if ((*tr) != NULL)
+  if (root != NULL)
   {
-    if (x < (*tr)->key)
-      delete_node(x, &((*tr)->left));
-    else if (x > (*tr)->key)
-      delete_node(x, &((*tr)->right));
+    if (x < root->key)
+      root->left = delete_node(x, root->left);
+    else if (x > root->key)
+      root->right = delete_node(x, root->right);
     else
     {
-      if ((*tr)->left == NULL && (*tr)->right == NULL)
+      if (root->left == NULL && root->right == NULL)
       {
-        free((*tr));
-        (*tr) = NULL;
+        free(root);
+        root = NULL;
+        return NULL;
       }
-      else if ((*tr)->left == NULL)
+      else if (root->left == NULL)
       {
-        Tree delNode = (*tr);
-        (*tr) = (*tr)->right;
+        Tree delNode = root;
+        root = root->right;
+        free(delNode);
+        return delNode;
+      }
+      else if (root->right == NULL)
+      {
+        Tree delNode = root;
+        root = root->left;
         free(delNode);
         delNode = NULL;
-      }
-      else if ((*tr)->right == NULL)
-      {
-        Tree delNode = (*tr);
-        (*tr) = (*tr)->left;
-        free(delNode);
-        delNode = NULL;
+        return delNode;
       }
       else
       {
-        Tree minNode = (*tr)->right;
+        Tree minNode = root->right;
         while (minNode->left != NULL)
           minNode = minNode->left;
-        (*tr)->key = minNode->key;
-        delete_node(minNode->key, &((*tr)->right));
+        root->key = minNode->key;
+        root->right = delete_node(minNode->key, root->right);
       }
     }
   }
+  return root;
+}
+
+Tree convertTree(Tree root)
+{
+  if (root != NULL)
+  {
+    Tree mir;
+    mir = createNode(root->Data);
+    mir->Left = convertTree(root->Right);
+    mir->Right = convertTree(root->Left);
+    return mir;
+  }
+  return NULL;
 }
 
 int main()
