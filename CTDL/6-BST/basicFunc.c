@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
-
+typedef char DataType;
 struct Node
 {
-  int Key, key,Data;
+  DataType Data;
+  int Key, key;
   struct Node *Left, *Right, *left, *right;
 };
 typedef struct Node *Tree;
@@ -356,7 +357,21 @@ Tree convertTree(Tree root)
   return NULL;
 }
 
+char findMax(Tree tr)
+{
+  if (tr != NULL)
+  {
+    DataType l = -1, r = -1;
+    if (tr->Right != NULL)
+      r = findMax(tr->Right);
+    else if (tr->Left != NULL)
+      l = findMax(tr->Left);
+    return l > r ? l : r;
+  }
+  return -1;
+}
+
 int main()
 {
-  prinf("Hello world");
+  printf("Hello world");
 }
