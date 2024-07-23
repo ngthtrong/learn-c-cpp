@@ -16,7 +16,8 @@ int isLeaf(Tree n) {};
 int getLeaves(Tree T) {};
 void preOrder(Tree T) {};
 void inOrder(Tree T) {};
-void postOrder(Tree T) {
+void postOrder(Tree T)
+{
   if (T != NULL)
   {
     postOrder(T->Left);
@@ -24,6 +25,18 @@ void postOrder(Tree T) {
     printf("%c ", T->Data);
   }
 };
+
+DataType findMax(Tree tr)
+{
+  if (tr != NULL)
+  {
+    DataType maxLeft = findMax(tr->Left);
+    DataType maxRight = findMax(tr->Right);
+    DataType temp = maxLeft > maxRight ? maxLeft : maxRight;
+    return temp > tr->Data ? temp : tr->Data;
+  }
+  return -100;
+}
 
 int findIndex(DataType x, char in[], int star, int end)
 {
@@ -37,6 +50,7 @@ int findIndex(DataType x, char in[], int star, int end)
   }
   return i;
 }
+
 Tree createTree(DataType pre[], char in[], int star, int end)
 {
   static int preIndex = 0;
@@ -60,25 +74,58 @@ Tree createTree(DataType pre[], char in[], int star, int end)
   return NULL;
 }
 
-// Tree createTree(DataType pre[], char in[], int star, int end)
-// {
-//   static int preIndex = 0;
-//   if (star > end)
-//     return NULL;
-//   Tree temp = (Tree)malloc(sizeof(struct Node));
-//   temp->Data = pre[preIndex++];
-//   if (star == end)
-//   {
-//     temp->Left = NULL;
-//     temp->Right = NULL;
-//     return temp;
-//   }
-//   int inIndex = findIndex(temp->Data, in, star, end);
-//   temp->Left = createTree(pre, in, star, inIndex - 1);
-//   temp->Right = createTree(pre, in, inIndex + 1, end);
-//   return temp;
-// }
+void printArray(int path[], int len)
+{
+  int i;
+  for (i = 0; i < len; i++)
+    printf("%d", path[i]);
+  printf("\n");
+}
 
+Tree convertTree(Tree root)
+{
+  if (root != NULL)
+  {
+    Tree mir;
+    mir = createNode(root->Data);
+    mir->Left = convertTree(root->Right);
+    mir->Right = convertTree(root->Left);
+    return mir;
+  }
+  return NULL;
+}
+
+int isMirrors(Tree t1, Tree t2)
+{
+  if (t1 != NULL && t2 != NULL)
+  {
+    if (t1->Data == t2->Data)
+      return isMirrors(t1->Right, t2->Left) && isMirrors(t1->Left, t2->Right);
+    else
+      return 0;
+  }
+  else if (t1 == NULL && t2 == NULL)
+    return 1;
+  return 0;
+}
+
+void printAllPaths(Tree tr, DataType path[], int len, int pathlen)
+{
+  if (tr != NULL)
+  {
+    path[len] = tr->Data;
+    if (len == pathlen && tr->Left == NULL && tr->Right == NULL)
+    {
+      printArray(path, len + 1);
+    }
+    else if (len < pathlen)
+    {
+      len++;
+      printAllPaths(tr->Left, path, len, pathlen);
+      printAllPaths(tr->Right, path, len, pathlen);
+    }
+  }
+}
 
 int main()
 {
