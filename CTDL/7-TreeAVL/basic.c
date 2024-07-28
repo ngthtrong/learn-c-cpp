@@ -11,16 +11,26 @@ struct Node
 };
 typedef struct Node *Tree;
 
-int height(Tree tr)
+int myHeight(Tree tr)
 {
   if (tr != NULL)
   {
-    int hl = height(tr->left);
-    int hr = height(tr->right);
+    int hl = myHeight(tr->left);
+    int hr = myHeight(tr->right);
     hl = hl > hr ? hl : hr;
     return 1 + hl;
   }
   return 0;
+};
+
+Tree leftRotate(Tree tr)
+{
+  Tree x = tr->right, z = x->left;
+  x->left = tr;
+  tr->right = z;
+  x->height = myHeight(x);
+  tr->height = myHeight(tr);
+  return x;
 };
 
 Tree rightRotate(Tree tr)
@@ -32,15 +42,7 @@ Tree rightRotate(Tree tr)
   tr->height = height(tr);
   return x;
 };
-Tree leftRotate(Tree tr)
-{
-  Tree y = tr->right, z = y->left;
-  y->left = tr;
-  tr->right = z;
-  y->height = height(y);
-  tr->height = height(tr);
-  return y;
-};
+
 
 int getBalance(Tree tr)
 {
