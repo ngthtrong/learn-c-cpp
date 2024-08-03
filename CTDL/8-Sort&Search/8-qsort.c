@@ -1,11 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void swap(long int *arr, int a, int b)
-{
-  long int temp = *(arr + a);
-  *(arr + a) = *(arr + b);
-  *(arr + b) = temp;
-}
 void printArr(long int arr[], int n)
 {
   for (int i = 0; i < n; i++)
@@ -13,17 +8,11 @@ void printArr(long int arr[], int n)
   printf("\n");
 }
 
-void bubbleSort(long int *arr, int n)
+int cmp(const void *ptr1, const void *ptr2)
 {
-  for (int i = 0; i < n - 1; i++)
-  {
-    if (arr[i] > arr[i + 1])
-    {
-      swap(arr, i, i + 1);
-      for (int j = i; arr[j] < arr[j - 1] && j > 0; j--)
-        swap(arr, j, j - 1);
-    }
-  }
+  int *x = (int *)ptr1;
+  int *y = (int *)ptr2;
+  return *x - *y;
 }
 
 int main()
@@ -34,15 +23,14 @@ int main()
   for (int i = 0; i < n - 1; i++)
     scanf("%ld ", &arr[i]);
   scanf("%ld", &arr[n - 1]);
-  bubbleSort(arr, n);
+  qsort(arr, n, sizeof(long int), cmp);
   int long long total = 0;
   for (int i = 0; i < k; i++)
     total += arr[i];
   printf("%lld ", total);
   total = 0;
-  for (int i = n - 1; i > n - k; i--)
+  for (int i = n - 1; i > n - k - 1; i--)
     total += arr[i];
   printf("%lld\n", total);
-
   return 0;
 }
