@@ -1,6 +1,7 @@
 # ***CTU Learn***
 - This is place storage any code in my school
-- There will be categorized by each subject
+- There will be categorized by language and each subject.
+- ...
 - And... also is a place for me learn/test something about write a document or readme file,...
 
 - like this:
