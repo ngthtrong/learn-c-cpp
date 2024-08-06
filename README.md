@@ -3,6 +3,6 @@
 - 
 ---
 - [x] Data structures 
-- [] Phân tích và thiết kế thuật toán
+- [ ] Phân tích và thiết kế thuật toán
 
 
