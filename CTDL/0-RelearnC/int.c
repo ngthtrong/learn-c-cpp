@@ -37,11 +37,13 @@ void sort(Student *m01, int n)
 {
   for (int i = 0; i < n - 1; i++)
   {
+    int temp = i;
     for (int j = n - 1; j > i; j--)
     {
-      if (m01[j-1].Code > m01[j].Code)
-        swap(m01, j - 1, j);
+      if (m01[j - 1].Code > m01[j].Code)
+        temp = j;
     }
+    swap(m01, i, temp);
   }
   printClass(m01, n);
 }
