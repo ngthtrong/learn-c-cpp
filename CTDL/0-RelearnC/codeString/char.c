@@ -7,7 +7,7 @@ typedef struct Student
   char Name[50];
 } Student;
 
-void readClass(Student *m01, int n)
+void normalReadClass(Student *m01, int n)
 {
   for (int i = 0; i < n; i++)
   {
@@ -20,11 +20,31 @@ void readClass(Student *m01, int n)
   }
 }
 
+void readByFile(Student *m01, int n)
+{
+  FILE *f = fopen("data.txt", "r");
+  if (f == NULL)
+  {
+    perror("Error opening file");
+    return;
+  }
+  for (int i = 0; i < n; i++)
+  {
+    fgets(m01[i].Code, 10, f);
+    if (m01[i].Code[strlen(m01[i].Code) - 1] == '\n')
+      m01[i].Code[strlen(m01[i].Code) - 1] = '\0';
+    fgets(m01[i].Name, 50, f);
+    if (m01[i].Name[strlen(m01[i].Name) - 1] == '\n')
+      m01[i].Name[strlen(m01[i].Name) - 1] = '\0';
+  }
+  fclose(f);
+}
+
 void printClass(Student *m01, int n)
 {
   for (int i = 0; i < n; i++)
   {
-    printf("%d: %s - %s\n", i + 1, m01[i].Code, m01[i].Name);
+    printf("%2d: %s - %s\n", i + 1, m01[i].Code, m01[i].Name);
   }
 }
 
@@ -39,13 +59,11 @@ void sort(Student *m01, int n)
 {
   for (int i = 0; i < n - 1; i++)
   {
-    int temp = i;
     for (int j = n - 1; j > i; j--)
     {
       if (strcmp(m01[j - 1].Code, m01[j].Code) > 0)
-        temp = j;
+        swap(m01, j, j - 1);
     }
-    swap(m01, temp, i);
   }
   printClass(m01, n);
 }
@@ -54,8 +72,9 @@ int main()
 {
   int n;
   printf("Nhap si so lop: ");
-  scanf("%d\n", &n);
+  scanf("%d", &n);
   Student m01[n];
-  readClass(m01, n);
+  readByFile(m01, n);
+  // normalReadClass(m01, n);
   sort(m01, n);
 }
