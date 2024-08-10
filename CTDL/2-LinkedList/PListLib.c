@@ -243,6 +243,12 @@ void printList(List l)
   }
   printf("\n");
 }
+
+
+
+
+
+
 //===============================Copilot=======================//
 void makenullList(List *pl)
 {
