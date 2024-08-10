@@ -16,9 +16,9 @@ typedef Position List;
 Position locate(ElementType x, List *p)
 {
   Position temp = (*p);
-  while (temp != NULL)
+  while (temp->next != NULL)
   {
-    if (x == temp->element)
+    if (x == temp->next->element)
       return temp;
     temp = temp->next;
   }
