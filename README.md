@@ -3,7 +3,7 @@
 
 ---
 ### Plan
-- [ ] Cấu trúc dữ liệu
+- [x] Cấu trúc dữ liệu
 - [ ] .
 - [ ] .
 - [ ] .
