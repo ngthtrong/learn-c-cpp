@@ -17,13 +17,12 @@ Fraction read()
 
 int ungChung(int b, int a)
 {
-    int r = a % b;
+    int r = b;
     if (b > a)
     {
+        b = a;
+        a = r;
         r = a;
-        a = b;
-        b = r;
-        r = a % b;
     }
     while (a % b != 0)
     {
@@ -61,7 +60,7 @@ Fraction subtract(Fraction p1, Fraction p2)
     Fraction temp;
     temp.numerator = p1.numerator * p2.denominator - p2.numerator * p1.denominator;
     temp.denominator = p1.denominator * p2.denominator;
-    // reduce(&temp);
+    reduce(&temp);
     return temp;
 }
 Fraction multiply(Fraction p1, Fraction p2)
@@ -83,17 +82,20 @@ Fraction divide(Fraction p1, Fraction p2)
 
 int main()
 {
-    // Fraction p1, p2;
-    // p1 = read();
-    // p2 = read();
-    // print(p1);
-    // print(p2);
-    // reduce(&p1);
-    // reduce(&p2);
-    // // Fraction sum = add(p1,p2);
-    // Fraction sum = subtract(p1, p2);
-    // // reduce(&sum);
-    printf("ung chung laf %d\n", ungChung(12, 36));
-    // print(sum);
+    Fraction p1, p2;
+    p1 = read();
+    p2 = read();
+    reduce(&p1);
+    reduce(&p2);
+    print(p1);
+    print(p2);
+    printf("add    :");
+    print(add(p1,p2));
+    printf("sub    :");
+    print(subtract(p1,p2));
+    printf("mul    :");
+    print(multiply(p1,p2));
+    printf("divide :");
+    print(divide(p1,p2));
     return 0;
 }
