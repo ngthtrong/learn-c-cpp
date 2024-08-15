@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ***CTU Learn***
 - This is place storage any code in my school
 - There will be categorized by language and each subject.
@@ -7,28 +8,13 @@
 
 - like this:
 > or like this
+=======
+# ***C/C++***
+- This is place storage every code write in C or C++, on school.
+- 
+>>>>>>> 0de31f9d272ce6e393824f37eb5e6296665b7146
 ---
-[or like this](https://github.com/ngthtrong)
----
-### or this:
-|**this**|**and this**|how about|if|I|do|this|
-|--------|------------|---------|--|-|--|----|
-| Cell 1 | Cell 2     |
+- [x] Data structures 
+- [ ] Phân tích và thiết kế thuật toán
 
 
-- [ ] Task 1
-- [x] Task 2
-
-| Header 1 | Header 2 | Header 3 |
-|----------|----------|----------|
-| Cell 1   | Cell 2   | Cell 3   |
-| Cell 4   | Cell 5   | Cell 6   |
-
-
-
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
-    
