@@ -81,48 +81,42 @@ int locateOfMark(List *pL, char c[])
 
 int main()
 {
-    List L;
-    L = MakeNull(&L);
-
-    fgets(firsName, sizeof(firsName), stdin);
-    int len = strlen(firsName);
-    if (len > 0 && firsName[len - 1] == '\n')
-    {
-        firsName[len - 1] = '\0';
-    }
-    Insert(&L, 1, (Ele){"Harry Potter", 10});
-    Insert(&L, 2, (Ele){"Hermione Granger", 8});
-    Insert(&L, 3, (Ele){"Draco Malfoy", 7});
-    Insert(&L, 4, (Ele){"Luna Lovegood", 8});
-    Insert(&L, 5, (Ele){"Ron Weasley", 9});
-
-    // Ele student[5] = {
-    //     {"Harry Potter", 10},
-    //     {"Hermione Granger", 8},
-    //     {"Draco Malfoy", 7},
-    //     {"Luna Lovegood", 8},
-    //     {"Ron Weasley", 9}};
-
-    Ele newsStudent = {"Gini Weasley", 6};
-
-    // CreateList(&L, student);
-    PrintList(&L);
-
-    Insert(&L, 2, newsStudent);
-    PrintList(&L);
-
-    Delete(&L, 3);
-    PrintList(&L);
-
-    int mark = locateOfMark(&L, firsName);
-    if (mark != -1)
-    {
-        printf("%d\n", mark);
-    }
-    else
-    {
-        printf("Student not found.\n");
-    }
+    // List L;
+    // L = MakeNull(&L);
+    // fgets(firsName, sizeof(firsName), stdin);
+    // int len = strlen(firsName);
+    // if (len > 0 && firsName[len - 1] == '\n')
+    // {
+    //     firsName[len - 1] = '\0';
+    // }
+    // Insert(&L, 1, (Ele){"Harry Potter", 10});
+    // Insert(&L, 2, (Ele){"Hermione Granger", 8});
+    // Insert(&L, 3, (Ele){"Draco Malfoy", 7});
+    // Insert(&L, 4, (Ele){"Luna Lovegood", 8});
+    // Insert(&L, 5, (Ele){"Ron Weasley", 9});
+    // Ele newsStudent = {"Gini Weasley", 6};
+    // // CreateList(&L, student);
+    // PrintList(&L);
+    // Insert(&L, 2, newsStudent);
+    // PrintList(&L);
+    // Delete(&L, 3);
+    // PrintList(&L);
+    // int mark = locateOfMark(&L, firsName);
+    // if (mark != -1)
+    // {
+    //     printf("%d\n", mark);
+    // }
+    // else
+    // {
+    //     printf("Student not found.\n");
+    // }
+    char test[50];
+    char right[50];
+    char down[50];
+    scanf("%s", test);
+    scanf("%s", right);
+    scanf("%s", down);
+    printf("%s   %s %s", test, right, down);
 
     return 0;
 }
