@@ -22,8 +22,8 @@ void scanBigNum(BigInt *number, char c)
 
 void printBigNum(BigInt number)
 {
-    printf("Number: %s\n", number.digits);
-    printf("Length: %d\n", number.length);
+    printf(" number: %s\n", number.digits);
+    // printf("Length: %d\n", number.length);
 }
 
 void swap(BigInt *a, BigInt *b)
@@ -147,7 +147,7 @@ BigInt mul(BigInt a, BigInt b)
     return result;
 }
 
-BigInt longDivision(BigInt a, int divisor)
+BigInt myDiv(BigInt a, int divisor)
 {
     BigInt result;
     result.digits = (char *)malloc(sizeof(char) * (a.length));
@@ -193,6 +193,6 @@ int main()
     BigInt mulNum = mul(a, b);
     printBigNum(mulNum);
     printf("-Div-\n");
-    BigInt divNum = longDivision(a, 6);
+    BigInt divNum = myDiv(a, 6);
     printBigNum(divNum);
 }
