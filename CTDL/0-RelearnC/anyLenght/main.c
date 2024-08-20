@@ -11,7 +11,7 @@ typedef struct
 void scanBigNum(BigInt *number, char c)
 {
     char num[1000];
-    printf("Enter %c: ", c);
+    printf("Enter %c:      ", c);
     fgets(num, 1000, stdin);
     if (num[strlen(num) - 1] == '\n')
         num[strlen(num) - 1] = '\0';
@@ -23,7 +23,6 @@ void scanBigNum(BigInt *number, char c)
 void printBigNum(BigInt number)
 {
     printf(" number: %s\n", number.digits);
-    // printf("Length: %d\n", number.length);
 }
 
 void swap(BigInt *a, BigInt *b)
@@ -46,9 +45,11 @@ void reverse(BigInt *num)
 BigInt sum(BigInt a, BigInt b)
 {
     BigInt result;
-    result.digits = (char *)malloc(sizeof(char) * a.length > b.length ? a.length + 1 : b.length + 1);
+    result.digits = (char *)malloc(
+        sizeof(char) * a.length > b.length ? a.length + 1 : b.length + 1);
     int carry = 0;
-    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0; i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
+    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0;
+         i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
     {
         int aDigit = i >= 0 ? a.digits[i] - 48 : 0;
         int bDigit = j >= 0 ? b.digits[j] - 48 : 0;
@@ -66,7 +67,8 @@ BigInt sum(BigInt a, BigInt b)
 BigInt sub(BigInt a, BigInt b)
 {
     BigInt result;
-    result.digits = (char *)malloc(sizeof(char) * a.length > b.length ? a.length : b.length);
+    result.digits =
+        (char *)malloc(sizeof(char) * a.length > b.length ? a.length : b.length);
     int isNegative = 0;
     if (a.length == b.length) // make a always bigger than b and handle equal case
     {
@@ -88,7 +90,8 @@ BigInt sub(BigInt a, BigInt b)
         isNegative = 1;
     }
     int carry = 0;
-    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0; i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
+    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0;
+         i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
     {
         int aDigit = i >= 0 ? a.digits[i] - 48 : 0;
         int bDigit = j >= 0 ? b.digits[j] - 48 : 0;
@@ -183,16 +186,16 @@ int main()
     scanBigNum(&a, 'a');
     BigInt b;
     scanBigNum(&b, 'b');
-    printf("-Sum-\n");
+    printf("-Sum-");
     BigInt sumNum = sum(a, b);
     printBigNum(sumNum);
-    printf("-Sub-\n");
+    printf("-Sub-");
     BigInt subNum = sub(a, b);
     printBigNum(subNum);
-    printf("-Mul-\n");
+    printf("-Mul-");
     BigInt mulNum = mul(a, b);
     printBigNum(mulNum);
-    printf("-Div-\n");
-    BigInt divNum = myDiv(a, 6);
+    printf("-Div-");
+    BigInt divNum = myDiv(a, 12837129);
     printBigNum(divNum);
 }
