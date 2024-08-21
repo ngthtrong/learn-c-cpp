@@ -89,7 +89,7 @@ BigInt sub(BigInt a, BigInt b)
     }
     int carry = 0;
     for (int i = a.length - 1, j = b.length - 1, rsIndex = 0;
-         i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
+        i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
     {
         int aDigit = i >= 0 ? a.digits[i] - 48 : 0;
         int bDigit = j >= 0 ? b.digits[j] - 48 : 0;
@@ -130,7 +130,7 @@ BigInt mul(BigInt a, BigInt b)
     {
         for (int j = b.length - 1; j >= 0; j--)
         {
-            int mulDigit = (a.digitfs[i] - 48) * (b.digits[j] - 48);
+            int mulDigit = (a.digits[i] - 48) * (b.digits[j] - 48);
             int sumDigit = result.digits[i + j + 1] - 48 + mulDigit;
             result.digits[i + j + 1] = sumDigit % 10 + 48;
             result.digits[i + j] += sumDigit / 10;

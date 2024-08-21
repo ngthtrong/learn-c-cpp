@@ -42,9 +42,9 @@ void print(Fraction p)
 }
 void reduce(Fraction *p)
 {
-    int UCLL = ungChung(p->numerator, p->denominator);
-    p->numerator = p->numerator / UCLL;
-    p->denominator = p->denominator / UCLL;
+    int ucln = ungChung(p->numerator, p->denominator);
+    p->numerator = p->numerator / ucln;
+    p->denominator = p->denominator / ucln;
     if (p->denominator < 0 && p->numerator > 0)
     {
         p->numerator -= 2 * p->numerator;
