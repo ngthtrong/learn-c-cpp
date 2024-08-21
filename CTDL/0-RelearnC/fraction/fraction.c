@@ -102,16 +102,16 @@ int main()
     printf("Fraction b: ");
     print(p2);
     // Add
-    printf("add    :");
+    printf("add    : ");
     print(add(p1, p2));
     // Sub
-    printf("sub    :");
+    printf("sub    : ");
     print(subtract(p1, p2));
     // Mul
-    printf("mul    :");
+    printf("mul    : ");
     print(multiply(p1, p2));
     // Div
-    printf("divide :");
+    printf("divide : ");
     print(divide(p1, p2));
     return 0;
     // int temp = ungChung(3, 1);
