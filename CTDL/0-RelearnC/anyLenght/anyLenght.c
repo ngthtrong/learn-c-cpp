@@ -45,11 +45,9 @@ void reverse(BigInt *num)
 BigInt sum(BigInt a, BigInt b)
 {
     BigInt result;
-    result.digits = (char *)malloc(
-        sizeof(char) * a.length > b.length ? a.length + 1 : b.length + 1);
+    result.digits = (char *)malloc(sizeof(char) * a.length > b.length ? a.length + 1 : b.length + 1);
     int carry = 0;
-    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0;
-         i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
+    for (int i = a.length - 1, j = b.length - 1, rsIndex = 0; i >= 0 || j >= 0 || carry; i--, j--, rsIndex++)
     {
         int aDigit = i >= 0 ? a.digits[i] - 48 : 0;
         int bDigit = j >= 0 ? b.digits[j] - 48 : 0;
@@ -132,7 +130,7 @@ BigInt mul(BigInt a, BigInt b)
     {
         for (int j = b.length - 1; j >= 0; j--)
         {
-            int mulDigit = (a.digits[i] - 48) * (b.digits[j] - 48);
+            int mulDigit = (a.digitfs[i] - 48) * (b.digits[j] - 48);
             int sumDigit = result.digits[i + j + 1] - 48 + mulDigit;
             result.digits[i + j + 1] = sumDigit % 10 + 48;
             result.digits[i + j] += sumDigit / 10;
