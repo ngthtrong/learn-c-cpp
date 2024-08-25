@@ -40,7 +40,7 @@ int isDifficult(BigInt a, BigInt b)
         return 0;
 }
 
-BigInt copyBigInt(BigInt a)
+BigInt copyBigInt(BigInt a) //handle error BigInt be changed after run a function
 {
     BigInt copy;
     copy.digits = (char *)malloc(strlen(a.digits) + 1);
