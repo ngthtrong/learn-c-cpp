@@ -254,7 +254,7 @@ BigInt mul(BigInt a, BigInt b)
         for (int j = b.length - 1; j >= 0; j--)
         {
             int mulDigit = (a.digits[i] - 48) * (b.digits[j] - 48);
-            int sumDigit = result.digits[i + j + 1] - 48 + mulDigit;
+            int sumDigit = result.digits[i + j + 1] - 48 + mulDigit; //i+j+1 is the position of the digit in result,and equals (a.length + b.length -1)
             result.digits[i + j + 1] = sumDigit % 10 + 48;
             result.digits[i + j] += sumDigit / 10;
         }
