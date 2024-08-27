@@ -4,3 +4,4 @@
 output
 ./output
 ./test
+*.out
