@@ -40,7 +40,7 @@ int isDifficult(BigInt a, BigInt b)
         return 0;
 }
 
-BigInt copyBigInt(BigInt a) //handle error BigInt be changed after run a function
+BigInt copyBigInt(BigInt a) // handle error BigInt be changed after run a function
 {
     BigInt copy;
     copy.digits = (char *)malloc(strlen(a.digits) + 1);
@@ -236,11 +236,24 @@ BigInt mul(BigInt a, BigInt b)
 {
     a = copyBigInt(a);
     b = copyBigInt(b);
+
+    if ((a.digits[0] == '0' &&a.length == 1) || (b.digits[0] == '0' &&b.length == 1)) //handle 0 case
+    {
+        BigInt result;
+        result.digits = (char *)malloc(sizeof(char) * 2);
+        result.digits[0] = '0';
+        result.digits[1] = '\0';
+        result.length = 1;
+        return result;
+    }
     int isNegative = 0;
     if (isDifficult(a, b))
         isNegative = 1;
-    convertToPositive(&a);
-    convertToPositive(&b);
+
+    if (a.digits[0] == '-')
+        convertToPositive(&a);
+    if (b.digits[0] == '-')
+        convertToPositive(&b);
     BigInt result;
     result.digits = (char *)malloc(sizeof(char) * (a.length + b.length));
     for (int i = 0; i < a.length + b.length; i++)
@@ -254,7 +267,7 @@ BigInt mul(BigInt a, BigInt b)
         for (int j = b.length - 1; j >= 0; j--)
         {
             int mulDigit = (a.digits[i] - 48) * (b.digits[j] - 48);
-            int sumDigit = result.digits[i + j + 1] - 48 + mulDigit; //i+j+1 is the position of the digit in result,and equals (a.length + b.length -1)
+            int sumDigit = result.digits[i + j + 1] - 48 + mulDigit; // i+j+1 is the position of the digit in result,and equals (a.length + b.length -1)
             result.digits[i + j + 1] = sumDigit % 10 + 48;
             result.digits[i + j] += sumDigit / 10;
         }
