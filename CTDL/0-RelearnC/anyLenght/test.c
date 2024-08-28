@@ -13,9 +13,7 @@ int locate(ElementType x, List l)
     for (Position i = 0; i < l.size; i++)
     {
         if (l.data[i] == x)
-        {
             return 1;
-        }
     }
     return 0;
 }
