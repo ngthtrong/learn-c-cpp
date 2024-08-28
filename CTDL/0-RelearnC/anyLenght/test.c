@@ -8,16 +8,16 @@ typedef struct List
     int size;
 } List;
 
-Position locate(ElementType x, List l)
+int locate(ElementType x, List l)
 {
     for (Position i = 0; i < l.size; i++)
     {
         if (l.data[i] == x)
         {
-            return i;
+            return 1;
         }
     }
-    return (Position)l.size;
+    return 0;
 }
 
 int main()
