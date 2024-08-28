@@ -1,7 +1,9 @@
 .vscode
 .idea
+./.idea
 *output
 output
 ./output
 ./test
 *.out
+./a.out
