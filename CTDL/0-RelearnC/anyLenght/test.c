@@ -8,18 +8,22 @@ typedef struct List
     int size;
 } List;
 
-int find(ElementType x, List l)
+Position locate(ElementType x, List l)
 {
     for (Position i = 0; i < l.size; i++)
     {
         if (l.data[i] == x)
-            return 1;
+
+        {
+            return i;
+        }
+
     }
-    return 0;
+    return (Position)l.size;
 }
 
 int main()
 {
     List l = {{1, 2, 3, 4, 5}, 5};
-    printf("%d", find(456, l));
+    printf("%d", locate(456, l));
 }
