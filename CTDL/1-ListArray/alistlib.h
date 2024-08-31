@@ -13,7 +13,8 @@ List L;
 Initialize an empty list
 */
 void makeNull(List *L){
-// Insert your code here
+    L->elements[0] = '\0';
+    L->size =0;
 
 }
 
@@ -52,7 +53,7 @@ void print(List L){
 Return the element at position p
 */
 ElementType getAt(Position p, List L){
-// Insert your code here
+
 
 
 }
@@ -61,7 +62,7 @@ ElementType getAt(Position p, List L){
 Return the first position in L
 */
 Position first(List L){
-// Insert your code here
+
 
 
 }
@@ -70,7 +71,7 @@ Position first(List L){
 Return the end position in L
 */
 Position endList(List L){
-// Insert your code here
+
 
 
 }
@@ -79,7 +80,7 @@ Position endList(List L){
 Update the element at position p by a new value
 */
 void setAt(Position p, ElementType x,List *L){
-// Insert your code here
+
 
 
 }
@@ -88,7 +89,7 @@ void setAt(Position p, ElementType x,List *L){
 Insert x at position p
 */
 void insertAt(Position p, ElementType x, List *L){
-// Insert your code here
+
 
 
 }
@@ -117,7 +118,7 @@ ElementType popAt(Position p, List *L){
 Insert x to the first position
 */
 void insertFirst(ElementType x, List *L){
-// Insert your code here
+
 
 }
 
@@ -132,7 +133,7 @@ ElementType popFirst(List *L){
 Append a new element to the list
 */
 void append(ElementType x,List *L){
-// Insert your code here
+
 
 
 }
@@ -159,7 +160,7 @@ Position locate(ElementType x, List L){
 Return the next position of p in L
 */
 Position next(Position p,List L){
-// Insert your code here
+
 	
 }
 
