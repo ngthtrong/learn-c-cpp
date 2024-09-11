@@ -64,13 +64,6 @@ ElementType getAt(Position p, List L)
 	printf("Error Position not found!\n");
 	exit(EXIT_FAILURE);
 }
-ElementType retrieve(Position p, List L)
-{
-	if (p < L.size)
-		return L.elements[p - 1];
-	printf("Error Position not found!\n");
-	exit(EXIT_FAILURE);
-}
 
 /*
 Return the first position in L
@@ -223,13 +216,21 @@ Position previous(Position p, List L)
 		exit(EXIT_FAILURE);
 	}
 }
-// void sort(List *L)
-// {
-// 	for (Position i = 1; !; i++)
-// 	{
-// 		/* code */
-// 	}
-// }
+void sort(List *L)
+{
+	for (Position i = 0; i < L->size - 1; i++)
+	{
+		for (int j = L->size - 1; j > i; j--)
+		{
+			if (L->elements[j] < L->elements[j - 1])
+			{
+				ElementType temp = L->elements[j];
+				L->elements[j] = L->elements[j - 1];
+				L->elements[j - 1] = temp;
+			}
+		}
+	}
+}
 void delete_duplicate(List *L)
 {
 	for (Position i = 1; i != endList(*L) && i != endList(*L); i++)
