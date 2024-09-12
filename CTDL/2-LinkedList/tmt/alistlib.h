@@ -10,17 +10,33 @@ typedef struct NodeTag
 typedef Node *List;
 typedef Node *Position;
 
-ElementType retrieve(int p)
+void makeNull(List *L)
 {
-    if (p->next == NULL)
-        exit(EXIT_FAILURE);
-    else
-        return p->next->data;
-}
-Position getPosition(int i, List L)
+    *L = (Node *)malloc(sizeof(Node));
+    (*L)->next = NULL;
+};
+int empty(List L) {
+    return L->next==NULL;
+};
+int len(List L)
 {
-    Position p = L;
-    for (int j = 0; (j < i) && p->next != NULL; j++)
-        p = p->next;
-    return p;
-}
+    int count = 0;
+    while (!empty(L))
+        count++;
+    return count;
+};
+int fullList(List L) {};
+void print(List L) {};
+ElementType getAt(Position p, List L) {};
+Position first(List L) {};
+Position endList(List L) {};
+void setAt(Position p, ElementType x, List *L) {};
+void insertAt(Position p, ElementType x, List *L) {};
+ElementType popAt(Position p, List *L) {};
+void insertFirst(ElementType x, List *L) {};
+ElementType popFirst(List *L) {};
+void append(ElementType x, List *L) {};
+ElementType popLast(List *L) {};
+Position locate(ElementType x, List L) {};
+Position next(Position p, List L) {};
+Position previous(Position p, List L) {};
