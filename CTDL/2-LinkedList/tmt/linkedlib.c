@@ -51,6 +51,7 @@ ElementType getAt(Position p, List L)
 {
     if (p->next != NULL)
         return p->next->data;
+    printf("err getAt: position doesn't exist\n");
     exit(EXIT_FAILURE);
 };
 
@@ -72,7 +73,11 @@ void setAt(Position p, ElementType x, List *L)
 {
     if (p->next != NULL)
         p->next->data = x;
-    exit(EXIT_FAILURE);
+    else
+    {
+        printf("err setAt: position doesn't exist\n");
+        exit(EXIT_FAILURE);
+    }
 };
 void myInsertAt(Position p, ElementType x, List *L)
 {
@@ -137,7 +142,7 @@ void append(ElementType x, List *L)
 ElementType popLast(List *L)
 {
     Position end = endList(*L);
-    ElementType x= end->data;
+    ElementType x = end->data;
     Position p = *L;
     while (p->next != end)
         p = p->next;
@@ -192,7 +197,38 @@ Position previous(Position p, List L)
     }
     return temp;
 };
-
-void bubbleSort(List *L){
-    printf("hello world");
+void bubbleSort(List *L) // use functions: first(), empty(), endList(),getAt(),setAt()
+{
+    Position p, q;
+    for (p = first(*L); p->next != NULL; p = next(p, *L))
+    {
+        for (q = first(*L); q->next != NULL; q = next(q, *L))
+        {
+            if (getAt(q, *L) > getAt(next(q, *L), *L))
+            {
+                ElementType temp = getAt(q, *L);
+                setAt(q, getAt(next(q, *L), *L), L);
+                setAt(next(q, *L), temp, L);
+            }
+        }
+    }
 };
+int main()
+{
+    List L;
+    makeNull(&L);
+    insertFirst(9, &L);
+    insertFirst(4, &L);
+    insertFirst(10, &L);
+    insertFirst(7, &L);
+    insertFirst(6, &L);
+    insertFirst(5, &L);
+    insertFirst(1, &L);
+    insertFirst(8, &L);
+    insertFirst(3, &L);
+    insertFirst(2, &L);
+    print(L);
+    bubbleSort(&L);
+    print(L);
+    return 0;
+}

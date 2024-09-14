@@ -35,7 +35,7 @@ void simplification(Pylonomial *p)
     sort(p);
     for (int i = 0; i < p->size; i++)
     {
-        if (p->data[i].exponent == p->data[i + 1].exponent)
+        if (p->data[i].exponent == p->data[i + 1].exponent && i + 1 < p->size)
         {
             p->data[i].factor += p->data[i + 1].factor;
             for (int j = i + 1; j < p->size; j++)
@@ -54,8 +54,6 @@ void simplification(Pylonomial *p)
 };
 void derivative(Pylonomial *p)
 {
-    simplification(p);
-
     for (int i = 0; i < p->size; i++)
     {
         if (p->data[i].exponent == 0)
@@ -109,6 +107,7 @@ void read(Pylonomial *p)
         p->data[i] = temp;
     }
     p->size = n;
+    simplification(p);
 };
 int main(int argc, char const *argv[])
 {
