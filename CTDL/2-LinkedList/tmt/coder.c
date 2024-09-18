@@ -62,8 +62,6 @@ void read(List *L)
         temp[strlen(temp) - 1] = '\0';
     appendList(temp, strlen(temp), L);
 }
-
-// a.ham nhap theo thu tu nhap
 PNode end(List L)
 {
     PNode p = L;
@@ -81,6 +79,7 @@ List coder(List L, List key)
         if (tmpKey->next == NULL)
             tmpKey = key;
         tmpNode->next->data += tmpKey->next->data;
+        tmpKey = tmpKey->next;
         tmpNode = tmpNode->next;
     }
     return L;
@@ -94,6 +93,8 @@ List decoder(List L, List key)
         if (tmpKey->next == NULL)
             tmpKey = key;
         tmpNode->next->data -= tmpKey->next->data;
+        tmpKey = tmpKey->next;
+
         tmpNode = tmpNode->next;
     }
     return L;
@@ -103,7 +104,11 @@ int main()
 {
     ElementType a[] = {2, 3, 4, 9};
     List key;
-    appendList(a, sizeof(a) / sizeof(ElementType), &key);
+    makeNull(&key);
+    insertFirst(9, &key);
+    insertFirst(4, &key);
+    insertFirst(3, &key);
+    insertFirst(2, &key);
     List L;
     read(&L);
     print(L);
