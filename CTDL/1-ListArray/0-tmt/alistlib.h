@@ -216,7 +216,7 @@ Position previous(Position p, List L)
 		exit(EXIT_FAILURE);
 	}
 }
-void sort(List *L)
+void bubbleSort(List *L)
 {
 	for (Position i = 0; i < L->size - 1; i++)
 	{

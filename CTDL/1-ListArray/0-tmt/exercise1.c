@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     insertAt(16, 100, &L);
     printf("List after input 20 ramdom integer:\n");
     print(L);
-    sort(&L);
+    bubbleSort(&L);
     printf("List after sort:\n");
     print(L);
     return 0;
