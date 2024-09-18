@@ -24,16 +24,11 @@ void reverseList(int a[], int n, List *L)
 void bubbleSort(List *L)
 {
 	PNode tempNode = *L;
-	Position size = 0;
-	while (tempNode->next != NULL)
-	{
-		tempNode = tempNode->next;
-		size++;
-	}
+
 	for (Position i = 1; getPosition(i, *L) != end(*L); i++)
 	{
 
-		for (Position j = size; getPosition(j, *L) != first(*L) && i > 1; j--)
+		for (Position j = len(*L); getPosition(j, *L) != first(*L) && i > 1; j--)
 		{
 			if (getAt(j, *L) < getAt(j - 1, *L))
 			{
