@@ -36,16 +36,32 @@ ElementType pop(Stack *s)
   s->elements = (ElementType *)realloc(s->elements, s->capacity-- * sizeof(ElementType));
   return s->elements[s->top--];
 }
-void print(Stack *s){
-  while(!is_empty(*s)){
-    printf("%d ", pop(s));
+void print(Stack *s)
+{
+  while (!is_empty(*s))
+  {
+    printf("%d", pop(s));
   }
   printf("\n");
 }
-void to_binary(int n, Stack *s){
-  makenull(s);
-  while(n){
-    push(n%2, s);
-    n /= 2;
-  } 
+void to_binary(int n)
+{
+  printf("%d -> ", n);
+  Stack s;
+  makenull(&s);
+  if (n == 0)
+    push(n % 2, &s);
+  else
+  {
+    while (n)
+    {
+      push(n % 2, &s);
+      n /= 2;
+    }
+  }
+  print(&s);
+}
+int main()
+{
+  to_binary(0);
 }
