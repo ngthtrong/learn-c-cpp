@@ -7,3 +7,4 @@ output
 ./test
 *.out
 ./a.out
+test
