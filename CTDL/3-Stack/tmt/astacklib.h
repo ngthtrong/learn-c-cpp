@@ -42,3 +42,9 @@ void push(ElemenType x, Stack *s)
         exit(EXIT_FAILURE);
     }
 };
+void print(Stack *s)
+{
+    while (!isEmpty(*s))
+        printf("%d", pop(s));
+    printf("\n");
+}

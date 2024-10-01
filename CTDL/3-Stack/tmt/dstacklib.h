@@ -29,7 +29,7 @@ ElementType pop(Stack *s)
     if (!isEmpty(*s))
     {
         ElementType rs = s->element[s->top--];
-        s->element = (ElementType *)realloc(s->element, sizeof(ElementType) * (--s->capacity));
+        s->element = (ElementType *)realloc(s->element, sizeof(ElementType) * (s->capacity));
         return rs;
     }
     printf("pop: stack empty\n");
@@ -44,3 +44,9 @@ void push(ElementType x, Stack *s)
     }
     s->element[++s->top] = x;
 };
+void print(Stack *s)
+{
+    while (!isEmpty(*s))
+        printf("%d", pop(s));
+    printf("\n");
+}

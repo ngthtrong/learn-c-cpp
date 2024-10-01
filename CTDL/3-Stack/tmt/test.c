@@ -4,18 +4,78 @@
 // #include "pstacklib.h"
 #include "dstacklib.h"
 
-int main()
+void to_binary(int n)
+{
+    printf("%d -> ", n);
+    Stack s;
+    makeNull(&s);
+    if (n == 0)
+        push(n % 2, &s);
+    else
+    {
+        while (n)
+        {
+            push(n % 2, &s);
+            n /= 2;
+        }
+    }
+    print(&s);
+}
+
+int calFibo(int n)
 {
     Stack s;
     makeNull(&s);
-    for (int i = 0; i < 5; i++)
+    push(n, &s);
+    int rs = 0;
+    while (!isEmpty(s))
     {
-        push(i * 2, &s);
+        int temp = pop(&s);
+        if (temp > 2)
+        {
+            push(temp - 2, &s);
+            push(temp - 1, &s);
+        }
+        else
+            rs += 1;
     }
-    printf("%d ", pop(&s));
-    for (int i = 0; i < 5; i++)
+    return rs;
+}
+int calC(int k, int n)
+{
+    Stack ks;
+    makeNull(&ks);
+    Stack ns;
+    makeNull(&ns);
+    int rs = 0;
+    push(k, &ks);
+    push(n, &ns);
+    while (!(isEmpty(ks) && isEmpty(ns)))
     {
-        printf("%d ", pop(&s));
+
+        int tempK = pop(&ks);
+        int tempN = pop(&ns);
+        if (tempK == 0 || tempK == tempN)
+            rs += 1;
+        else if (tempK == 1)
+            rs += tempN;
+        else
+        {
+            push(tempK - 1, &ks);
+            push(tempK, &ks);
+            push(tempN - 1, &ns);
+            push(tempN - 1, &ns);
+        }
     }
-    printf(" \n");
+    return rs;
+}
+
+int main()
+{
+    to_binary(127);
+    int rs = calFibo(7);
+    printf("%d\n", rs);
+    int c = calC(3, 50);
+    printf("%d\n", c);
+    return 0;
 }
