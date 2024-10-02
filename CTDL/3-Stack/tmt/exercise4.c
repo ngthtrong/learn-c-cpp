@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "astacklib.h"
+// #include "astacklib.h"
 // #include "pstacklib.h"s
-// #include "dstacklib.h"
+#include "dstacklib.h"
 
-void to_binary(int n)
+void toBinary(int n)
 {
     printf("%d -> ", n);
     Stack s;
@@ -22,7 +22,7 @@ void to_binary(int n)
     print(&s);
 }
 
-int calFibo(int n)
+int Fibo(int n)
 {
     Stack s;
     makeNull(&s);
@@ -41,7 +41,7 @@ int calFibo(int n)
     }
     return rs;
 }
-int calC(int k, int n)
+int C(int k, int n)
 {
     Stack ks;
     makeNull(&ks);
@@ -72,10 +72,10 @@ int calC(int k, int n)
 
 int main()
 {
-    to_binary(127);
-    int rs = calFibo(7);
+    // toBinary(127);
+    int rs = Fibo(10);
     printf("%d\n", rs);
-    int c = calC(3, 50);
+    int c = C(3, 50);
     printf("%d\n", c);
     return 0;
 }

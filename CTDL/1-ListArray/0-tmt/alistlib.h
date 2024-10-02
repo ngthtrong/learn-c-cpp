@@ -191,7 +191,7 @@ Return the next position of p in L
 */
 Position next(Position p, List L)
 {
-	if (p >= 1 && p < L.size )
+	if (p >= 1 && p < L.size)
 
 		return p + 1;
 	else
@@ -216,7 +216,7 @@ Position previous(Position p, List L)
 		exit(EXIT_FAILURE);
 	}
 }
-void bubbleSort(List *L)
+void myBubbleSort(List *L)
 {
 	for (Position i = 0; i < L->size - 1; i++)
 	{
@@ -231,6 +231,26 @@ void bubbleSort(List *L)
 		}
 	}
 }
+void swap(Position p, Position q, List *l)
+{
+	ElementType temp = getAt(p, *l);
+	setAt(p, getAt(q, *l), l);
+	setAt(q, temp, l);
+}
+void bubbleSort(List *l)
+{
+	for (Position i = first(*l); i != endList(*l) - 1; i = next(i, *l))
+	{
+		for (Position j = endList(*l) - 1; j != i; j = previous(j, *l))
+		{
+			if (getAt(j, *l) < getAt(previous(j, *l), *l))
+			{
+				swap(j, previous(j, *l), l);
+			}
+		}
+	}
+}
+
 void delete_duplicate(List *L)
 {
 	for (Position i = 1; i != endList(*L) && i != endList(*L); i++)
