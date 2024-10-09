@@ -44,8 +44,8 @@ void enQueue(int x, Queue *q)
   {
     if (q->Rear == -1 && q->Front == -1)
     {
-      q->Front=0;
-      q->Rear=0;
+      q->Front = 0;
+      q->Rear = 0;
     }
     else if (q->Rear == 9)
       q->Rear = 0;
@@ -53,6 +53,16 @@ void enQueue(int x, Queue *q)
       q->Rear++;
     q->Elements[q->Rear] = x;
   }
+}
+
+void move(int n, Queue q)
+{
+  for (int i = q.Front; i <= q.Rear; i++)
+  {
+    q.Elements[i - n] = q.Elements[i];
+  }
+  q.Front = 0;
+  q.Rear -= n;
 }
 
 //=============================//
