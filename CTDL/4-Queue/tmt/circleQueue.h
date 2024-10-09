@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MaxSize 5
+#define MaxSize 50
 typedef int ElementType;
 typedef struct
 {
@@ -8,7 +8,7 @@ typedef struct
     int front, rear;
 } Queue;
 
-void makeNull(Queue *q)
+void makeNullQueue(Queue *q)
 {
     q->front = -1;
     q->rear = -1;

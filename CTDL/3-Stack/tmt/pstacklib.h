@@ -43,6 +43,17 @@ void push(ElementType x, Stack *s)
 void print(Stack *s)
 {
     while (!isEmpty(*s))
-        printf("%d", pop(s));
+        printf("%d ", pop(s));
+    printf("\n");
+}
+void printStack(Stack s)
+{
+    Node *temp = s;
+    while (temp->next != NULL)
+    {
+        printf("%d ", temp->next->data);
+        temp = temp->next;
+    }
+
     printf("\n");
 }

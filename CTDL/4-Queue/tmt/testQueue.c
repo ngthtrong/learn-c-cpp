@@ -6,7 +6,7 @@
 int main(int argc, char const *argv[])
 {
     Queue q;
-    makeNull(&q);
+    makeNullQueue(&q);
     enQueue(1, &q);
     enQueue(2, &q);
     enQueue(3, &q);

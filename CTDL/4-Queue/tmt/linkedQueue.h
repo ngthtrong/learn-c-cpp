@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MaxSize 5
 typedef int ElementType;
 typedef struct Node
 {
