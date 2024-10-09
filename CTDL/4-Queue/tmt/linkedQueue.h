@@ -1,27 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "1-ListArray/0-tmt/alistlib.h"
-#define MaxSize 100
+#define MaxSize 5
 typedef int ElementType;
-typedef struct
+typedef struct Node
 {
-    ElementType element[MaxSize];
-    int front, rear;
+    ElementType data;
+    struct Node *next;
+} Node;
+typedef struct Queue
+{
+    Node *front;
+    Node *rear;
 } Queue;
 
-void shiftLeft(int n, Queue *q)
+void makeNull(Queue *q)
 {
-    for (int i = q->front; i <= q->rear; i++)
+    Node *header = (Node *)malloc(sizeof(Node));
+    header->next = NULL;
+    q->front = header;
+    q->rear = header;
+}
+int emptyQueue(Queue q)
+{
+    return q.front->next == NULL;
+}
+int fullQueue(Queue q)
+{
+    return 1;
+}
+void printQueue(Queue q)
+{
+    Node *temp = q.front;
+    while (temp->next)
     {
-        q->element[i - n] = q->element[i];
+        printf("%d ", temp->next->data);
+        temp = temp->next;
     }
-    q->front = 0;
-    q->rear -= n;
+    printf("\n");
 }
 void enQueue(ElementType x, Queue *q)
 {
-    if (q->rear == MaxSize - 1 && q->front != 0)
-        shiftLeft(q->front, q);
-    q->element[q->rear] = x;
-    q->rear++;
+    Node *temp = (Node *)malloc(sizeof(Node));
+    temp->data = x;
+    temp->next = NULL;
+    q->rear->next = temp;
+    q->rear = temp;
+}
+ElementType deQueue(Queue *q)
+{
+    if (!emptyQueue(*q))
+    {
+        Node *temp = q->front->next;
+        ElementType rs = temp->data;
+        q->front->next = q->front->next->next;
+        free(temp);
+        return rs;
+    }
+    printf("err deQueue: queue is empty");
+    exit(EXIT_FAILURE);
 }
