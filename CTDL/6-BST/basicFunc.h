@@ -1,20 +1,23 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 typedef char DataType;
 struct Node
 {
-  DataType Data;
-  int Key, key;
-  struct Node *Left, *Right, *left, *right;
+  DataType key;
+  struct Node *left, *right;
 };
 typedef struct Node *Tree;
 
 Tree initTree()
 {
   Tree temp;
+  // temp = (Tree)malloc(sizeof(struct Node));
+  // temp->left = NULL;
+  // temp->right = NULL;
   temp = NULL;
   return temp;
-}
+};
 
 int isEmpty(Tree tr)
 {
@@ -25,9 +28,9 @@ void preOrder(Tree tr)
 {
   if (tr != NULL)
   {
-    printf("%d ", tr->Key);
-    preOrder(tr->Left);
-    preOrder(tr->Right);
+    printf("%c ", tr->key);
+    preOrder(tr->left);
+    preOrder(tr->right);
   }
 }
 
@@ -36,9 +39,10 @@ void in_order(Tree tr)
   if (tr != NULL)
   {
     in_order(tr->left);
-    printf("%d ", tr->key);
+    printf("%c ", tr->key);
     in_order(tr->right);
   }
+  
 }
 
 void post_order(Tree tr)
@@ -51,7 +55,7 @@ void post_order(Tree tr)
   }
 }
 
-Tree search(int x, Tree tr)
+Tree search(DataType x, Tree tr)
 {
   if (tr != NULL)
   {
@@ -71,14 +75,14 @@ Tree getNext(int x, Tree tr)
 {
   if (tr != NULL)
   {
-    if (x > tr->Key)
-      return getNext(x, tr->Right);
-    else if (x < tr->Key)
-      return getNext(x, tr->Left);
-    else if (x == tr->Key)
+    if (x > tr->key)
+      return getNext(x, tr->right);
+    else if (x < tr->key)
+      return getNext(x, tr->left);
+    else if (x == tr->key)
     {
-      if (tr->Right != NULL)
-        return tr->Right;
+      if (tr->right != NULL)
+        return tr->right;
       return NULL;
     }
   }
@@ -89,14 +93,14 @@ Tree getPrevious(int x, Tree tr)
 {
   if (tr != NULL)
   {
-    if (x > tr->Key)
-      return getPrevious(x, tr->Right);
-    else if (x < tr->Key)
-      return getPrevious(x, tr->Left);
-    else if (x == tr->Key)
+    if (x > tr->key)
+      return getPrevious(x, tr->right);
+    else if (x < tr->key)
+      return getPrevious(x, tr->left);
+    else if (x == tr->key)
     {
-      if (tr->Left != NULL)
-        return tr->Left;
+      if (tr->left != NULL)
+        return tr->left;
       return NULL;
     }
   }
@@ -107,15 +111,15 @@ Tree rightSibling(int x, Tree tr)
 {
   if (tr != NULL)
   {
-    if (x > tr->Key)
+    if (x > tr->key)
     {
-      return rightSibling(x, tr->Right);
+      return rightSibling(x, tr->right);
     }
-    else if (x < tr->Key)
+    else if (x < tr->key)
     {
-      if (x == tr->Left->Key)
-        return tr->Right;
-      return rightSibling(x, tr->Left);
+      if (x == tr->left->key)
+        return tr->right;
+      return rightSibling(x, tr->left);
     }
     return NULL;
   }
@@ -124,17 +128,17 @@ Tree rightSibling(int x, Tree tr)
 
 Tree getParent(int x, Tree tr)
 {
-  if (x < tr->Key)
+  if (x < tr->key)
   {
-    if (x == tr->Left->Key)
+    if (x == tr->left->key)
       return tr;
-    return getParent(x, tr->Left);
+    return getParent(x, tr->left);
   }
-  else if (x > tr->Key)
+  else if (x > tr->key)
   {
-    if (x == tr->Right->Key)
+    if (x == tr->right->key)
       return tr;
-    return getParent(x, tr->Right);
+    return getParent(x, tr->right);
   }
   return NULL;
 }
@@ -162,23 +166,31 @@ void print_path(int x, Tree tr)
       printf(" --> Tim khong thay");
   }
 }
+Tree createNode(DataType key)
+{
+  Tree newNode = (Tree)malloc(sizeof(struct Node));
+  newNode->key = key;
+  newNode->left = NULL;
+  newNode->right = NULL;
+  return newNode;
+}
 
-void insertNode(int x, Tree *tr)
+void insertNode(DataType x, Tree *tr)
 {
   if ((*tr) != NULL)
   {
-    if (x < (*tr)->Key)
-      insertNode(x, &((*tr)->Left));
-    else if (x > (*tr)->Key)
-      insertNode(x, &((*tr)->Right));
+    if (x < (*tr)->key)
+      insertNode(x, &((*tr)->left));
+    else if (x > (*tr)->key)
+      insertNode(x, &((*tr)->right));
   }
   else
   {
     struct Node *tempN = (struct Node *)malloc(sizeof(struct Node));
     (*tr) = tempN;
-    (*tr)->Key = x;
-    (*tr)->Left = NULL;
-    (*tr)->Right = NULL;
+    (*tr)->key = x;
+    (*tr)->left = NULL;
+    (*tr)->right = NULL;
   }
 }
 
@@ -207,9 +219,9 @@ void posOrder(Tree tr)
 {
   if (tr != NULL)
   {
-    posOrder(tr->Left);
-    posOrder(tr->Right);
-    printf("%d ", &tr->Key);
+    posOrder(tr->left);
+    posOrder(tr->right);
+    printf("%d ", &tr->key);
   }
 }
 
@@ -235,22 +247,22 @@ int hNode(int x, Tree tr)
 {
   if (tr != NULL)
   {
-    if (x > tr->Key)
-      return hNode(x, tr->Right);
-    else if (x < tr->Key)
-      return hNode(x, tr->Left);
-    else if (x == tr->Key)
+    if (x > tr->key)
+      return hNode(x, tr->right);
+    else if (x < tr->key)
+      return hNode(x, tr->left);
+    else if (x == tr->key)
     {
-      if (tr->Left != NULL && tr->Right != NULL)
+      if (tr->left != NULL && tr->right != NULL)
       {
-        int tempR = hNode(tr->Right->Key, tr->Right);
-        int tempL = hNode(tr->Left->Key, tr->Left);
+        int tempR = hNode(tr->right->key, tr->right);
+        int tempL = hNode(tr->left->key, tr->left);
         return 1 + (tempR >= tempL ? tempR : tempL);
       }
-      else if (tr->Left != NULL)
-        return 1 + hNode(tr->Left->Key, tr->Left);
-      else if (tr->Right != NULL)
-        return 1 + hNode(tr->Right->Key, tr->Right);
+      else if (tr->left != NULL)
+        return 1 + hNode(tr->left->key, tr->left);
+      else if (tr->right != NULL)
+        return 1 + hNode(tr->right->key, tr->right);
       else
         return 0;
     }
@@ -263,38 +275,38 @@ void deleteNode(int x, Tree *tr)
 {
   if ((*tr) != NULL)
   {
-    if (x < (*tr)->Key)
-      deleteNode(x, &((*tr)->Left));
-    else if (x > (*tr)->Key)
-      deleteNode(x, &((*tr)->Right));
+    if (x < (*tr)->key)
+      deleteNode(x, &((*tr)->left));
+    else if (x > (*tr)->key)
+      deleteNode(x, &((*tr)->right));
     else
     {
-      if ((*tr)->Left == NULL && (*tr)->Right == NULL)
+      if ((*tr)->left == NULL && (*tr)->right == NULL)
       {
         free((*tr));
         (*tr) = NULL;
       }
-      else if ((*tr)->Left == NULL)
+      else if ((*tr)->left == NULL)
       {
         Tree delNode = (*tr);
-        (*tr) = (*tr)->Right;
+        (*tr) = (*tr)->right;
         free(delNode);
         delNode = NULL;
       }
-      else if ((*tr)->Right == NULL)
+      else if ((*tr)->right == NULL)
       {
         Tree delNode = (*tr);
-        (*tr) = (*tr)->Left;
+        (*tr) = (*tr)->left;
         free(delNode);
         delNode = NULL;
       }
       else
       {
-        Tree minNode = (*tr)->Right;
-        while (minNode->Left != NULL)
-          minNode = minNode->Left;
-        (*tr)->Key = minNode->Key;
-        deleteNode(minNode->Key, &((*tr)->Right));
+        Tree minNode = (*tr)->right;
+        while (minNode->left != NULL)
+          minNode = minNode->left;
+        (*tr)->key = minNode->key;
+        deleteNode(minNode->key, &((*tr)->right));
       }
     }
   }
@@ -349,9 +361,9 @@ Tree convertTree(Tree root)
   if (root != NULL)
   {
     Tree mir;
-    mir = createNode(root->Data);
-    mir->Left = convertTree(root->Right);
-    mir->Right = convertTree(root->Left);
+    mir = initTree(root->key);
+    mir->left = convertTree(root->right);
+    mir->right = convertTree(root->left);
     return mir;
   }
   return NULL;
@@ -362,16 +374,33 @@ char findMax(Tree tr)
   if (tr != NULL)
   {
     DataType l = -1, r = -1;
-    if (tr->Right != NULL)
-      r = findMax(tr->Right);
-    else if (tr->Left != NULL)
-      l = findMax(tr->Left);
+    if (tr->right != NULL)
+      r = findMax(tr->right);
+    else if (tr->left != NULL)
+      l = findMax(tr->left);
     return l > r ? l : r;
   }
   return -1;
 }
 
-int main()
-{
-  printf("Hello world");
-}
+// Tree initTree() {};
+// int isEmpty(Tree tr) {};
+// void preOrder(Tree tr) {};
+// void in_order(Tree tr) {};
+// void post_order(Tree tr) {};
+// Tree getParent(int x, Tree tr) {};
+// Tree search(int x, Tree tr) {};
+// Tree rightSibling(int x, Tree tr) {};
+// Tree getPrevious(int x, Tree tr) {};
+// Tree getNext(int x, Tree tr) {};
+// void print_path(int x, Tree tr) {};
+// void insertNode(int x, Tree *tr) {};
+// Tree insert_node(int x, Tree root) {};
+// void posOrder(Tree tr) {};
+// int get_height(Tree tr) {};
+// int hNode(int x, Tree tr) {};
+// void deleteNode(int x, Tree *tr) {};
+// Tree delete_node(int x, Tree root) {};
+// Tree convertTree(Tree root) {};
+// char findMax(Tree tr) {};
+

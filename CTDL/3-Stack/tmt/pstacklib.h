@@ -2,29 +2,29 @@
 #include <stdlib.h>
 
 typedef int ElementType;
-typedef struct Node
+typedef struct NodeStack
 {
     ElementType data;
-    struct Node *next;
-} Node;
-typedef Node *Stack;
+    struct NodeStack *next;
+} NodeStack;
+typedef NodeStack *Stack;
 
-int isEmpty(Stack s)
+int isEmptyStack(Stack s)
 {
     return s->next == NULL;
 };
 void makeNull(Stack *s)
 {
-    Node *header = (Stack)malloc(sizeof(Node));
+    NodeStack *header = (Stack)malloc(sizeof(NodeStack));
     header->next = NULL;
     (*s) = header;
 };
 ElementType pop(Stack *s)
 {
-    Node *a = *s;
-    if (!isEmpty(a))
+    NodeStack *a = *s;
+    if (!isEmptyStack(a))
     {
-        Node *temp = a->next;
+        NodeStack *temp = a->next;
         int rs = temp->data;
         a->next = a->next->next;
         free(temp);
@@ -35,20 +35,20 @@ ElementType pop(Stack *s)
 };
 void push(ElementType x, Stack *s)
 {
-    Node *temp = (Stack)malloc(sizeof(Node));
+    NodeStack *temp = (Stack)malloc(sizeof(NodeStack));
     temp->data = x;
     temp->next = (*s)->next;
     (*s)->next = temp;
 };
 void print(Stack *s)
 {
-    while (!isEmpty(*s))
+    while (!isEmptyStack(*s))
         printf("%d ", pop(s));
     printf("\n");
 }
 void printStack(Stack s)
 {
-    Node *temp = s;
+    NodeStack *temp = s;
     while (temp->next != NULL)
     {
         printf("%d ", temp->next->data);
@@ -56,4 +56,61 @@ void printStack(Stack s)
     }
 
     printf("\n");
+}
+// void freeStack(Stack *s)
+// {
+//     while (!isEmptyStack(*s))
+//         int temp = pop(s);
+//     free(s);
+// }
+
+void infixToPostfix(char *infix, char *postfix)
+{
+    Stack s;
+    makeNull(&s);
+    int i = 0, j = 0;
+    while (infix[i] != '\0')
+    {
+        if (infix[i] >= 'a' && infix[i] <= 'z')
+        {
+            postfix[j++] = infix[i];
+        }
+        else if (infix[i] == '(')
+        {
+            push(infix[i], &s);
+        }
+        else if (infix[i] == ')')
+        {
+            while (s->next->data != '(')
+            {
+                postfix[j++] = pop(&s);
+            }
+            pop(&s);
+        }
+        else
+        {
+            while (!isEmptyStack(s) && s->next->data != '(' && s->next->data != '+' && s->next->data != '-' && s->next->data != '*' && s->next->data != '/')
+            {
+                postfix[j++] = pop(&s);
+            }
+            push(infix[i], &s);
+        }
+        i++;
+    }
+    while (!isEmptyStack(s))
+    {
+        postfix[j++] = pop(&s);
+    }
+    postfix[j] = '\0';
+}
+
+void reverseByStack(char *postStr)
+{
+    Stack temp;
+    makeNull(&temp);
+    for (int i = 0; postStr[i] != '\0'; i++)
+        push(postStr[i], &temp);
+    for (int i = 0; postStr[i] != '\0'; i++)
+        postStr[i] = pop(&temp);
+    // freeStack(&temp);
 }
