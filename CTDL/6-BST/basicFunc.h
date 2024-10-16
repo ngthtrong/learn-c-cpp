@@ -12,13 +12,19 @@ typedef struct Node *Tree;
 Tree initTree()
 {
   Tree temp;
-  // temp = (Tree)malloc(sizeof(struct Node));
-  // temp->left = NULL;
-  // temp->right = NULL;
-  temp = NULL;
+  temp = (Tree)malloc(sizeof(struct Node));
+  temp->left = NULL;
+  temp->right = NULL;
   return temp;
 };
-
+Tree createNode(DataType key)
+{
+  Tree newNode = (Tree)malloc(sizeof(struct Node));
+  newNode->key = key;
+  newNode->left = NULL;
+  newNode->right = NULL;
+  return newNode;
+};
 int isEmpty(Tree tr)
 {
   return tr == NULL;
@@ -39,10 +45,13 @@ void in_order(Tree tr)
   if (tr != NULL)
   {
     in_order(tr->left);
-    printf("%c ", tr->key);
+    printf("%c", tr->key);
+    if (tr->key == '*')
+      printf("(");
     in_order(tr->right);
+    if (tr->key == '*')
+      printf(")");
   }
-  
 }
 
 void post_order(Tree tr)
@@ -51,7 +60,7 @@ void post_order(Tree tr)
   {
     post_order(tr->left);
     post_order(tr->right);
-    printf("%d ", tr->key);
+    printf("%c ", tr->key);
   }
 }
 
@@ -166,14 +175,6 @@ void print_path(int x, Tree tr)
       printf(" --> Tim khong thay");
   }
 }
-Tree createNode(DataType key)
-{
-  Tree newNode = (Tree)malloc(sizeof(struct Node));
-  newNode->key = key;
-  newNode->left = NULL;
-  newNode->right = NULL;
-  return newNode;
-}
 
 void insertNode(DataType x, Tree *tr)
 {
@@ -221,7 +222,7 @@ void posOrder(Tree tr)
   {
     posOrder(tr->left);
     posOrder(tr->right);
-    printf("%s ", &tr->key);
+    printf("%d ", &tr->key);
   }
 }
 
@@ -403,4 +404,3 @@ char findMax(Tree tr)
 // Tree delete_node(int x, Tree root) {};
 // Tree convertTree(Tree root) {};
 // char findMax(Tree tr) {};
-

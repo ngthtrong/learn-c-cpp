@@ -9,29 +9,43 @@ void printString(char *str)
   printf("%s", str);
   printf("\n");
 }
-
-int canStore(Tree tr)
+void insertFraction(int *index, char *str, Tree *tr)
 {
-  if (tr == NULL)
-    return 1;
-  else if ((tr->key >= 'a' && tr->key <= 'z'))
-    return 0;
+  if (str[*index] >= 'a' && str[*index] <= 'z')
+  {
+    (*tr) = createNode(str[*index]);
+    (*index)++;
+  }
   else
-    return canStore(tr->right) || canStore(tr->left);
+  {
+    int temp = *index;
+    (*index)++;
+    if ((*tr)->right == NULL)
+      (*tr)->right = initTree();
+    insertFraction(index, str, &((*tr)->right));
+    (*tr)->key = str[temp];
+    if ((*tr)->left == NULL)
+      (*tr)->left = initTree();
+    insertFraction(index, str, &((*tr)->left));
+  }
 }
 void insertFromPostString(char *str, Tree *tr)
 {
-  
+  int index = 0;
+  insertFraction(&index, str, tr);
 }
 
 int main()
 {
-  char inStr[] = "(a*(b+c))+(d*((e+f)+n*(g+j)))";
+  // char inStr[] = "(a*(b+c))+(d*((e+f)+n*(g+j)))";
+  char inStr[] = "(a*(b+c)*(m+k))+(d*((e+f)+n*(g+j)))";
   char postStr[50];
   infixToPostfix(inStr, postStr);
   printString(postStr);
   reverseByStack(postStr);
   printString(postStr);
-  // Tree tr = initTree();
-  // insertFromPostString( postStr, &tr);
+  Tree tr = initTree();
+  insertFromPostString(postStr, &tr);
+  in_order(tr);
+  printf("\n");
 }
