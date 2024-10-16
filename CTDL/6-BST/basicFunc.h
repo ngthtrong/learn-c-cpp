@@ -221,7 +221,7 @@ void posOrder(Tree tr)
   {
     posOrder(tr->left);
     posOrder(tr->right);
-    printf("%d ", &tr->key);
+    printf("%s ", &tr->key);
   }
 }
 

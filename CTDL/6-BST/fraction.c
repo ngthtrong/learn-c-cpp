@@ -6,21 +6,10 @@
 
 void printString(char *str)
 {
-  for (int i = 0; str[i] != '\0'; i++)
-  {
-    printf("%c", str[i]);
-  }
+  printf("%s", str);
   printf("\n");
 }
 
-struct Node createNode(DataType x)
-{
-  struct Node *tempN = (struct Node *)malloc(sizeof(struct Node));
-  tempN->key = x;
-  tempN->left = NULL;
-  tempN->right = NULL;
-  return tempN;
-}
 int canStore(Tree tr)
 {
   if (tr == NULL)
@@ -32,27 +21,7 @@ int canStore(Tree tr)
 }
 void insertFromPostString(char *str, Tree *tr)
 {
-  (*tr) = createNode(str[0]);
-  for (int i = 1; str[i] != '\0'; i++)
-  {
-    if (canStore(*tr))
-    {
-      if (canStore((*tr)->right))
-      {
-        (*tr)->right = createNode(str[i]);
-        (*tr) = (*tr)->right;
-      }
-      else
-      {
-        (*tr)->left = createNode(str[i]);
-        (*tr) = (*tr)->left;
-      }
-    }
-    else
-    {
-      (*tr)=getParent()
-    }
-  }
+  
 }
 
 int main()
@@ -63,6 +32,6 @@ int main()
   printString(postStr);
   reverseByStack(postStr);
   printString(postStr);
-  Tree tr = initTree();
-  insertFromPostString(index, postStr, &tr);
+  // Tree tr = initTree();
+  // insertFromPostString( postStr, &tr);
 }

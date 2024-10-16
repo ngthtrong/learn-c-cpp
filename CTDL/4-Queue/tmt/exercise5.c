@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include "../../3-Stack/tmt/pstacklib.h"
 #include "circleQueue.h"
-#define NumOfEle 10;
-void exer6a()
+#define NumOfEle 20;
+
+void exer5a()
 {
     int n = NumOfEle;
     Stack s;
@@ -21,7 +22,7 @@ void exer6a()
     printStack(s);
 }
 
-void exer6b()
+void exer5b()
 {
     int n = NumOfEle;
     Stack s;
@@ -39,9 +40,13 @@ void exer6b()
     printf("Queue after reverse: ");
     printQueue(q);
 }
-int main(int argc, char const *argv[])
+void exer5c(){
+
+}
+int main(int argc, char *argv[])
 {
-    exer6a();
-    exer6b();
+    exer5a();
+    exer5b();
+    exer5c();
     return 0;
 }
