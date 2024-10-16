@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MaxSize 50
+#define MaxSize 4
 typedef int ElementType;
 typedef struct
 {
@@ -42,7 +42,7 @@ void printQueue(Queue q)
     }
     else
     {
-        printf("err print: queue empty\n");
+        printf("queue empty\n");
         // exit(EXIT_FAILURE);
     }
 }

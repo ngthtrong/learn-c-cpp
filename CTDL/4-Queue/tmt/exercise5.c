@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include "../../3-Stack/tmt/pstacklib.h"
 #include "circleQueue.h"
-#define NumOfEle 20;
+#define NumOfEle 20
+
+void printString(int *a, int n)
+{
+    for (int i = 0; i < n; i++)
+        printf("%d", a[i]);
+    printf("\n");
+}
 
 void exer5a()
 {
@@ -40,13 +47,32 @@ void exer5b()
     printf("Queue after reverse: ");
     printQueue(q);
 }
-void exer5c(){
-
+void exer5c()
+{
+    int randomArray[NumOfEle];
+    for (int i = 0; i < NumOfEle; i++)
+        randomArray[i] = rand() % 2;
+    printString(randomArray, NumOfEle);
+    Queue q;
+    makeNullQueue(&q);
+    for (int i = 0; i < NumOfEle; i++)
+    {
+        if (randomArray[i])
+        {
+            printf("Producer push a item to queue\n");
+            enQueue(1, &q);
+        }
+        else
+        {
+            printf("Customer use a item: %d in queue\n", deQueue(&q));
+        }
+        printQueue(q);
+    }
 }
 int main(int argc, char *argv[])
 {
-    exer5a();
-    exer5b();
+    // exer5a();
+    // exer5b();
     exer5c();
     return 0;
 }
