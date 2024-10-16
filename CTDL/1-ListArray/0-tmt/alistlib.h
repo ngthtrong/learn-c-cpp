@@ -191,7 +191,7 @@ Return the next position of p in L
 */
 Position next(Position p, List L)
 {
-	if (p >= 1 && p < L.size)
+	if (p >= 1 && p <= L.size)
 
 		return p + 1;
 	else
@@ -206,7 +206,7 @@ Return the previous position of p in L
 */
 Position previous(Position p, List L)
 {
-	if (p >= 1 && p <= L.size && p != 1)
+	if (p > 1 && p <= L.size )
 	{
 		return p - 1;
 	}
