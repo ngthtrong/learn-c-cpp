@@ -8,3 +8,5 @@ output
 *.out
 ./a.out
 test
+temp
+./temp
