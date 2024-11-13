@@ -119,10 +119,13 @@ DataType deleteMin(Tree *tr)
         return deleteMin(&((*tr)->left));
     else
     {
+        if((*tr)->right!=NULL){
+
+        }
         Tree temp = (*tr);
         DataType x = temp->key;
         (*tr)->left = temp->right;
-    
+
         free(temp);
         printf("%d\n", x);
 
@@ -153,40 +156,54 @@ DataType deleteMax(Tree *tr)
 
 
 
+
 void deleteNode(int x, Tree *tr)
 {
-    if ((*tr) == NULL)
-        return;
+  if ((*tr) != NULL)
+  {
     if (x < (*tr)->key)
-        deleteNode(x, &((*tr)->left));
+      deleteNode(x, &((*tr)->left));
     else if (x > (*tr)->key)
-        deleteNode(x, &((*tr)->right));
+      deleteNode(x, &((*tr)->right));
     else
     {
-        if ((*tr)->left == NULL && (*tr)->right == NULL)
-        {
-            Tree temp = (*tr);
-            (*tr) = NULL;
-            free(temp);
-        }
-        else if ((*tr)->left != NULL && (*tr)->right == NULL)
-        {
-            Tree temp = (*tr);
-            (*tr) = (*tr)->left;
-            free(temp);
-        }
-        else if ((*tr)->right != NULL && (*tr)->left == NULL)
-        {
-            Tree temp = (*tr);
-            (*tr) = (*tr)->right;
-            free(temp);
-        }
-        else
-        {
-            (*tr)->key = deleteMax(&((*tr)->right));
-        }
+      if ((*tr)->left == NULL && (*tr)->right == NULL)
+      {
+        free((*tr));
+        (*tr) = NULL;
+      }
+      else if ((*tr)->left == NULL)
+      {
+        Tree temp = (*tr);
+        (*tr) = (*tr)->right;
+        free(temp);
+        temp = NULL;
+      } 
+      else if ((*tr)->right == NULL)
+      {
+        Tree temp = (*tr);
+        (*tr) = (*tr)->left;
+        free(temp);
+        temp = NULL;
+      }
+      else
+      {
+        Tree minNode = (*tr)->right;
+        while (minNode->left != NULL)
+          minNode = minNode->left;
+        (*tr)->key = minNode->key;
+        
+        deleteNode(minNode->key, &((*tr)->right));
+      }
     }
+  }
 }
+
+
+
+
+
+
 
 Tree readTree()
 {
@@ -208,7 +225,7 @@ int main()
     deleteNode(5, &tr);
     deleteNode(2, &tr);
     deleteNode(3, &tr);
-    deleteNode(4, &tr);
+    deleteNode(4, &tr); 
 
     inOrder(tr);
     printf("\n");
