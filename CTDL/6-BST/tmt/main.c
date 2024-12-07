@@ -111,45 +111,46 @@ void insertNode(DataType x, Tree *tr)
         (*tr)->key = x;
     }
 }
+DataType deleteMin(Tree* T) {
+    DataType key;
+    Tree temp;
+    if (((*T)->left) == NULL) {
+        temp = (*T);
+        key = (*T)->key;
+        (*T) = (*T)->right;
+        free(temp);
+        return key;
+    } else {
+        return deleteMin(&((*T)->left));
+    }
+}
 
-DataType deleteMin(Tree *tr)
-{
-
-    if ((*tr)->left != NULL)
-        return deleteMin(&((*tr)->left));
-    else
-    {
-        if((*tr)->right!=NULL){
-
+// deleteMax
+void deleteNode(DataType x, Tree* T) {
+    Tree temp;
+    if ((*T)!=NULL) {
+        // Tim x
+        if (x < (*T)->key) {
+            deleteNode(x, &((*T)->left));
+        } else if (x > (*T)->key) {
+            deleteNode(x, &((*T))->right);
+        } else {  // found x
+            if (isLeaf(*T)) {
+                temp = (*T);
+                (*T) = NULL;
+                free(temp);
+            } else if ((*T)->left == NULL && (*T)->right != NULL) {
+                temp = (*T);
+                (*T) = (*T)->right;
+                free(temp);
+            } else if ((*T)->right == NULL && (*T)->left != NULL) {
+                temp = (*T);
+                (*T) = (*T)->left;
+                free(temp);
+            } else {
+                (*T)->key = deleteMin(&((*T)->right));
+            }
         }
-        Tree temp = (*tr);
-        DataType x = temp->key;
-        (*tr)->left = temp->right;
-
-        free(temp);
-        printf("%d\n", x);
-
-        return x;
-    }
-}
-
-
-
-DataType deleteMax(Tree *tr)
-{
-
-    if ((*tr)->right != NULL)
-        return deleteMin(&((*tr)->right));
-    else
-    {
-        Tree temp = (*tr);
-        DataType x = temp->key;
-        (*tr)->right = temp->left;
-    
-        free(temp);
-        printf("%d\n", x);
-
-        return x;
     }
 }
 
@@ -157,7 +158,7 @@ DataType deleteMax(Tree *tr)
 
 
 
-void deleteNode(int x, Tree *tr)
+void myDeleteNode(int x, Tree *tr)
 {
   if ((*tr) != NULL)
   {
@@ -229,6 +230,7 @@ int main()
 
     inOrder(tr);
     printf("\n");
+
 
     // printf("%d\n", countLeaf(tr));
     // printf("%d\n", countNode(tr));
