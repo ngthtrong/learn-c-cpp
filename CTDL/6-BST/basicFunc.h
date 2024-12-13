@@ -45,7 +45,7 @@ void in_order(Tree tr)
   if (tr != NULL)
   {
     in_order(tr->left);
-    printf("%c", tr->key);
+    printf("%c ", tr->key);
     if (tr->key == '*')
       printf("(");
     in_order(tr->right);

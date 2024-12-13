@@ -41,16 +41,14 @@ int main()
   char inStr[] = "(a*(b+c)*(m+k))+(d*((e+f)+n*(g+j)))";
   char postStr[50];
   infixToPostfix(inStr, postStr);
-  // printString(postStr);
+  printString(postStr);
   reverseByStack(postStr);
-  // printString(postStr);
+  printString(postStr);
 
   //------------------------//
   Tree tr = initTree();
   insertFromPostString(postStr, &tr);
   in_order(tr);
-  printf("\n");
-  preOrder(tr);
   printf("\n");
 
 }
