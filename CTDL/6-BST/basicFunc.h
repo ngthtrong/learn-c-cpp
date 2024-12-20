@@ -61,7 +61,7 @@ void post_order(Tree tr)
     post_order(tr->left);
     post_order(tr->right);
     printf("%c ", tr->key);
-  }
+  } 
 }
 
 Tree search(DataType x, Tree tr)
