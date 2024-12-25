@@ -6,8 +6,9 @@ output
 ./output
 ./test
 *.out
-./a.out
+
 test
 temp
 ./temp
 temp.*
+*.exe
