@@ -24,6 +24,6 @@ Position locate(ElementType x, List l)
 
 int main()
 {
-    List l = {{1, 2, 3, 4, 5}, 5};
+    List l = {{1, 2, 3, 4, 5}, 2};
     printf("%d", locate(456, l));
 }
