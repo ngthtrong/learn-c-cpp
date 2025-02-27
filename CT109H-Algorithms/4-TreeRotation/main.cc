@@ -1,82 +1,81 @@
-
+#include <stdio.h>
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
 using namespace std;
 
-//Bước 1: Biểu diễn bằng phương pháp danh sách các đỉnh kề (adjacency list)
-#define MAX_N 101               // Tối đa 100 đỉnh, đánh số đỉnh từ 1
-struct Graph {                  // Khai báo struct kiểu C++, không cần dùng typedef
-    int n, m;                   // n: số đỉnh, m: số cung
-    vector<int> adj[MAX_N];     // adj[u]: danh sách các đỉnh kề của đỉnh u
-};
-
-//Bước 2: Khai báo các hằng và biến hỗ trợ (biến toàn cục):
-#define UNVISITED   0    // Chưa duyệt
-#define VISITED     1    // Đã duyệt
-
-int mark[MAX_N];         // Trạng thái của các đỉnh trong quá trình duyệt
-
-
-//Bước 3: Cài đạt DFS
-void BFS(Graph *pG, int w) {
-    queue<int> Q;          // Khai báo hàng đợi
-    mark[w] = VISITED;     // Đánh dấu w đã duyệt
-
-    // Thêm w vào Q
-    Q.push(w);                                        
-    while ( !Q.empty()                     ) { //Trong khi Q chưa rỗng
-        int u;
-        //Gán u = phần tử đầu hàng đợi
-        u = Q.front();                                    
-        
-        //Xoá bỏ phần tử đầu hàng đợi
-        Q.pop();                                          
-
-        for (int i = 0; i < pG->adj[u].size(); i++) {
-            int v;
-            // Gán v = phần tử thứ i của danh sách pG->adj[u]
-            v = pG->adj[u][i];                                
-            
-            if ( mark[v]==UNVISITED             ) {         // Nếu v chưa duyệt
-                // Đánh dấu v đã duyệt
-                mark[v]=UNVISITED;                                
-                            
-                // Thêm v vào hàng đợi Q
-                Q.push(v);                                        
-            }
-        }
+int Select(vector<int> A, int k) {
+    // Nếu len(A) <= 10 thì sắp xếp A và trả về A[k-1]
+    if ( A.size()<=10                   ) {
+        sort(A.begin(), A.end());        //Sắp xếp vector A tăng dần
+        return A[k-1]                        ;
     }
+
+    // Chọn pivot, hãy viết mã để chọn pivot theo phương pháp "fancy pivot"
+    int n = A.size();
+    vector<int> B;
+    for (int i = 0; i < n; i += 5) {
+        int group_size = i + 5 <= n ? 5 : n - i;
+        //Tìm phần tử trung vị của A[i], A[i+1], ..., A[i + group_size - 1] và đưa vào B
+        //Sử dụng vector temp chứa các phần tử A[i], A[i+1], ..., A[i + group_size - 1]
+        //Gọi hàm sort() để sắp xếp các phần tử của temp
+        //Lấy phần tử chính giữa của temp, tức temp[len(temp)/2], đưa vào B
+        int cnt = 0;
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = 1; j < i*2; j++)
+            {
+                cnt++;
+            }
+            
+        }
+        
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+    }
+    // Gọi Select(B, len(B)/2) để tìm pivotVal
+    int pivotVal =  Select(B, B.size()/2)        ;
+
+    // Kiểm tra pivotVal
+    cout << "pivot value = " << pivotVal << endl;
+
+    // Phân hoạch A thành L, pivotVal và R
+    vector<int> L, R;
+    for (int i = 0; i < A.size(); i++) {
+        if(A[i]<pivotVal)                                 
+         L.push_back(A[i]);                               
+        else if (A[i]>pivotVal)                           
+        R.push_back(A[i]);                                
+                                                          
+    }
+
+    if (k == L.size() + 1)      // k = len(L) + 1
+        return pivotVal                      ;
+        
+    if (k < L.size() + 1)       // k < len(L) + 1
+        return Select(L,k)                   ;
+
+    return Select(R,k-L.size()-1)        ;              // k > len(L) + 1
+
 }
 
 //Bước 4: Kiểm thử
 int main() {
-    Graph G;
-    
-    cin >> G.n >> G.m;
-    
-    //Đọc các cung và thêm vào đồ thị
-    for (int e = 1; e <= G.m; e++) {
-        int u, v;
-        cin >> u >> v;
-        G.adj[u].push_back(v);
-        G.adj[v].push_back(u);    // Giả sử G là đồ thị vô hướng
+    int n, k;
+    vector<int> A;
+    cin >> n >> k;
+    A.resize(n);   //Thay đổi kích thước của A về n phần tử
+    for (int i = 0; i < n; i++) {
+        cin >> A[i];
     }
-    
-        
-    // Gán tất cả các đỉnh đều chưa duyêt
-    for (int u = 1; u <= G.n; u++)
-        mark[u] = UNVISITED;
-    
-    //Gọi BFS nhiều lần để duyệt toàn bộ đồ thị
-    int cnt = 0;
-    for (int u = 1; u <= G.n; u++)
-        if (mark[u] == UNVISITED) {
-            BFS(&G, u);
-            cnt++;      // Đếm số bộ phần liên thông
-        }
 
-    cout << "G has " << cnt << " connected component(s)" << endl;
-
+    int ret = Select(A, k);
+    cout << "Select(A, " << k << ") = " << ret << endl;
+    
     return 0;
 }
