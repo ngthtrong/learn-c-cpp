@@ -1,8 +1,14 @@
 #include <stdio.h>
-int main(int argc, char const *argv[])
+int main()
 {
-    float a =4;
-    float b= 0;
-    printf("%f",a/b);
+    int n;
+    scanf("%d", &n);
+    int a[n];
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+    int max = a[0];
+    printf("%d \n", max);
     return 0;
 }
