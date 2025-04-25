@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MaxSize 50
+#define MAX_SIZE 100
 typedef int ElementType;
 typedef struct
 {
-    ElementType elements[MaxSize];
+    ElementType elements[MAX_SIZE];
     int front, rear;
 } Queue;
 
@@ -19,7 +19,7 @@ int emptyQueue(Queue q)
 }
 int fullQueue(Queue q)
 {
-    return (q.front == 0 && q.rear == MaxSize);
+    return (q.front == 0 && q.rear == MAX_SIZE);
 }
 int sizeQueue(Queue q)
 {
@@ -49,7 +49,7 @@ void shiftLeft(int n, Queue *q)
 }
 void  enQueue(ElementType x, Queue *q)
 {
-    if (q->front != 0 && q->rear == MaxSize)
+    if (q->front != 0 && q->rear == MAX_SIZE)
         shiftLeft(q->front, q);
     q->elements[q->rear++] = x;
 }
