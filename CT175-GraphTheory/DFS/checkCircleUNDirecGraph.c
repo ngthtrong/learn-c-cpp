@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_SIZE 100
-#define VISITTED 1
 #define UNVISITTED 0
+#define VISITTED 1
+#define INPROGRESS 2
 
 int mark[MAX_SIZE + 1];
-int status[MAX_SIZE + 1];
 int parent[MAX_SIZE + 1];
+int flag = 0;
 
 typedef struct
 {
@@ -16,17 +17,32 @@ typedef struct
 
 void DFS(Graph *pg, int s)
 {
-    mark[s] = VISITTED;
+    mark[s] = INPROGRESS;
+
     // printf("%d\n", s);
     for (int i = 1; i <= pg->n; i++)
     {
-        if (pg->e[s][i] == 1 && mark[i] == UNVISITTED)
+        if (pg->e[s][i] == 1 && i != s)
         {
-            if (parent[i] == -1)
+            if (mark[i] == UNVISITTED)
+            {
                 parent[i] = s;
-            DFS(pg, i);
+                DFS(pg, i);
+            }
+            else if (mark[i] == INPROGRESS && parent[s] != i)
+            {
+                flag = s;
+                return;
+            }
         }
     }
+    mark[s] = VISITTED;
+}
+void printParent(int e)
+{
+    if (parent[e] != -1)
+        printParent(parent[e]);
+    printf("%d ", e);
 }
 
 int main(int argc, char const *argv[])
@@ -40,6 +56,7 @@ int main(int argc, char const *argv[])
 
     for (int i = 1; i <= G.n; i++)
     {
+
         parent[i] = -1;
         for (int j = 0; j < G.n; j++)
             G.e[i][j] = 0;
@@ -50,20 +67,22 @@ int main(int argc, char const *argv[])
         mark[e + 1] = UNVISITTED;
         scanf("%d%d", &u, &v);
         G.e[u][v] = 1;
-        // G.e[v][u] = 1;
+        G.e[v][u] = 1;
     }
-    int s;
-    scanf("%d", &s);
-    for (int i = 1; i <= G.n; i++)
+    int s = 1;
+    // scanf("%d", &s);
+    // for (int i = 1; i <= G.n; i++)
+    //     if (mark[i] == UNVISITTED)
+    //     {
+    //         s = i;
+    //     }
+    DFS(&G, 1);
+    if (flag != 0)
     {
-        if (mark[i] == UNVISITTED)
-        {
-            DFS(&G, i);
-        }
+        printParent(flag);
+        printf("%d", s);
+        // printf("CIRCLED");
     }
-    for (int i = 1; i <= G.n; i++)
-    {
-        printf("%d %d\n",i, parent[i]);
-    }
-    
+    else
+        printf("-1");
 }

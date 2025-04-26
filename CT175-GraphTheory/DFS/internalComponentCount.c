@@ -5,8 +5,7 @@
 #define UNVISITTED 0
 
 int mark[MAX_SIZE + 1];
-int status[MAX_SIZE + 1];
-int parent[MAX_SIZE + 1];
+int count = 0;
 
 typedef struct
 {
@@ -22,8 +21,7 @@ void DFS(Graph *pg, int s)
     {
         if (pg->e[s][i] == 1 && mark[i] == UNVISITTED)
         {
-            if (parent[i] == -1)
-                parent[i] = s;
+            count++;
             DFS(pg, i);
         }
     }
@@ -40,7 +38,6 @@ int main(int argc, char const *argv[])
 
     for (int i = 1; i <= G.n; i++)
     {
-        parent[i] = -1;
         for (int j = 0; j < G.n; j++)
             G.e[i][j] = 0;
     }
@@ -50,20 +47,21 @@ int main(int argc, char const *argv[])
         mark[e + 1] = UNVISITTED;
         scanf("%d%d", &u, &v);
         G.e[u][v] = 1;
-        // G.e[v][u] = 1;
+        G.e[v][u] = 1;
     }
     int s;
     scanf("%d", &s);
+    int max = 0;
     for (int i = 1; i <= G.n; i++)
     {
         if (mark[i] == UNVISITTED)
         {
             DFS(&G, i);
+            if (max < count)
+                max = count;
+            count = 0;
         }
     }
-    for (int i = 1; i <= G.n; i++)
-    {
-        printf("%d %d\n",i, parent[i]);
-    }
-    
+    // DFS(&G, s);
+    printf("%d", count);
 }

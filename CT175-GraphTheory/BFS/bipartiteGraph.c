@@ -4,6 +4,11 @@
 #define VISITTED 1
 #define UNVISITTED 0
 
+int mark[MAX_SIZE + 1];
+int parent[MAX_SIZE + 1];
+Queue q;
+
+
 typedef int ElementType;
 typedef struct
 {
@@ -48,10 +53,8 @@ ElementType deQueue(Queue *q)
     exit(EXIT_FAILURE);
 }
 
-int mark[MAX_SIZE + 1];
-int parent[MAX_SIZE + 1];
 
-Queue q;
+
 typedef struct
 {
     int m, n;
