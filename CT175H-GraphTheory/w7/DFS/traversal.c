@@ -50,7 +50,7 @@ int main(int argc, char const *argv[])
         mark[e + 1] = UNVISITTED;
         scanf("%d%d", &u, &v);
         G.e[u][v] = 1;
-        // G.e[v][u] = 1;
+        G.e[v][u] = 1;
     }
     int s;
     scanf("%d", &s);
