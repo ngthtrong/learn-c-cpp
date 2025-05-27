@@ -234,7 +234,8 @@ Position locate(ElementType x, List L)
       if (p->next == NULL)
       {
         printf("err locate: not found x\n");
-        exit(EXIT_FAILURE);
+        return -1;
+        // exit(EXIT_FAILURE);
       }
       p = p->next;
       i++;

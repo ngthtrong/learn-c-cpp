@@ -69,7 +69,7 @@ int main(int argc, char const *argv[])
         G.e[u][v] = 1;
         G.e[v][u] = 1;
     }
-    int s = 1;
+    // int s = 1;
     // scanf("%d", &s);
     // for (int i = 1; i <= G.n; i++)
     //     if (mark[i] == UNVISITTED)
@@ -79,10 +79,10 @@ int main(int argc, char const *argv[])
     DFS(&G, 1);
     if (flag != 0)
     {
-        printParent(flag);
-        printf("%d", s);
-        // printf("CIRCLED");
+        // printParent(flag);
+        // printf("%d", s);
+        printf("CIRCLED");
     }
     else
-        printf("-1");
+        printf("NO CIRCLE");
 }

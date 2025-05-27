@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 100
+#define MAX 15
 #define VISITTED 1
 #define UNVISITTED 0
 
@@ -66,10 +66,16 @@ void SCC(Graph *pg, int u)
         if (pg->A[u][i] == 0 || u == i)
             continue;
         if (num[i] == 0)
+        {
             SCC(pg, i);
-
-        min_num[u] = min_num[i] > min_num[u] ? min_num[u] : min_num[i];
+            min_num[u] = min_num[i] > min_num[u] ? min_num[u] : min_num[i];
+        }
+        else if (on_stack[i] == 1)
+        {
+            min_num[u] = num[i] > min_num[u] ? min_num[u] : num[i];
+        }
     }
+
     if (num[u] == min_num[u])
     {
         count++;
@@ -81,7 +87,7 @@ int main(int argc, char const *argv[])
     // freopen("dt.txt", "r", stdin); // Khi nộp bài nhớ bỏ dòng này.
     Graph G;
     makeNull(&S);
-    int n, m, u, v, e;
+    int n, m, u, v, e, p;
     scanf("%d%d", &n, &m);
     G.m = m;
     G.n = n;
@@ -89,11 +95,7 @@ int main(int argc, char const *argv[])
     for (int i = 0; i <= G.n; i++)
     {
         for (int j = 0; j <= G.n; j++)
-        {
             G.A[i][j] = 0;
-            if (i == j)
-                G.A[i][j] = 1;
-        }
         num[i] = 0;
         min_num[i] = 0;
         on_stack[i] = 0;
@@ -101,8 +103,10 @@ int main(int argc, char const *argv[])
 
     for (e = 0; e < m; e++)
     {
-        scanf("%d%d", &u, &v);
+        scanf("%d%d%d", &u, &v, &p);
         G.A[u][v] = 1;
+        if (p == 2)
+            G.A[v][u] = 1;
     }
     for (int i = 1; i < G.n + 1; i++)
     {
@@ -110,19 +114,18 @@ int main(int argc, char const *argv[])
             SCC(&G, i);
     }
 
-    // SCC(&G, 1);
     // for (int i = 1; i <= G.n; i++)
     // {
     //     printf("%d %d\n", num[i], min_num[i]);
     // }
     //======
-    // if (count == 1)
-    //     printf("STRONG CONNECTED");
-    // else
-    //     printf("STRONG CONNECTED");
+    if (count == 1)
+        printf("OKIE");
+    else
+        printf("NO");
     //======
 
-    printf("%d", count);
+    // printf("%d", max);
 }
 // int isEmptyStack(Stack s) {};
 // void makeNull(Stack *s) {};

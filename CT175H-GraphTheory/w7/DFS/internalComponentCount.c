@@ -17,11 +17,11 @@ void DFS(Graph *pg, int s)
 {
     mark[s] = VISITTED;
     // printf("%d\n", s);
+    count++;
     for (int i = 1; i <= pg->n; i++)
     {
         if (pg->e[s][i] == 1 && mark[i] == UNVISITTED)
         {
-            count++;
             DFS(pg, i);
         }
     }
@@ -49,8 +49,8 @@ int main(int argc, char const *argv[])
         G.e[u][v] = 1;
         G.e[v][u] = 1;
     }
-    int s;
-    scanf("%d", &s);
+    // int s;
+    // scanf("%d", &s);
     int max = 0;
     for (int i = 1; i <= G.n; i++)
     {
@@ -63,5 +63,5 @@ int main(int argc, char const *argv[])
         }
     }
     // DFS(&G, s);
-    printf("%d", count);
+    printf("%d", max);
 }

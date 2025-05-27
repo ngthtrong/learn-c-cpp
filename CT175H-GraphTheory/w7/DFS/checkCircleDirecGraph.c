@@ -82,8 +82,8 @@ int main(int argc, char const *argv[])
         // printf("%d", s);
         // printParent(flag);
         // printf("%d", s);
-        printf("CIRCULAR REFERENCE");
+        printf("NO");
     }
     else
-        printf("OK");
+        printf("YES");
 }

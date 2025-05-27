@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
         }
     }
     if (flag == 1)
-        printf("CONNECTED\n");
+        printf("YES\n");
     else
-        printf("DISCONNECTED\n");
+        printf("NO\n");
 }
