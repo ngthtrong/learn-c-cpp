@@ -7,7 +7,6 @@
 int mark[MAX_SIZE + 1];
 int status[MAX_SIZE + 1];
 int parent[MAX_SIZE + 1];
-
 typedef struct
 {
     int m, n;
@@ -22,8 +21,8 @@ void DFS(Graph *pg, int s)
     {
         if (pg->e[s][i] == 1 && mark[i] == UNVISITTED)
         {
-            if (parent[i] == -1)
-                parent[i] = s;
+            // if (parent[i] == -1)
+            parent[i] = s;
             DFS(pg, i);
         }
     }
@@ -38,10 +37,10 @@ int main(int argc, char const *argv[])
     G.m = m;
     G.n = n;
 
-    for (int i = 1; i <= G.n; i++)
+    for (int i = 0; i <= G.n; i++)
     {
-        parent[i] = -1;
-        for (int j = 0; j < G.n; j++)
+        parent[i] = 0;
+        for (int j = 0; j <= G.n; j++)
             G.e[i][j] = 0;
     }
 
@@ -63,7 +62,6 @@ int main(int argc, char const *argv[])
     }
     for (int i = 1; i <= G.n; i++)
     {
-        printf("%d %d\n",i, parent[i]);
+        printf("%d %d\n", i, parent[i]);
     }
-    
 }

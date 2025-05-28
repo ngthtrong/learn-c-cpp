@@ -81,8 +81,8 @@ int main(int argc, char const *argv[])
     {
         // printParent(flag);
         // printf("%d", s);
-        printf("CIRCLED");
+        printf("YES");
     }
     else
-        printf("NO CIRCLE");
+        printf("NO");
 }

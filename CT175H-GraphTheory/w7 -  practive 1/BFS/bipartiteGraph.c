@@ -112,24 +112,24 @@ int main(int argc, char const *argv[])
     enQueue(1, &q);
     BFS(&G, 1);
     if (conflict == 1)
-        printf("NO");
+        printf("IMPOSSIBLE");
     else
     {
-        printf("YES");
-        // for (int i = 1; i <= G.n; i++)
-        // {
-        //     if (color[i] == RED)
-        //     {
-        //         printf("%d ", i);
-        //     }
-        // }
-        // printf("\n");
-        // for (int i = 1; i <= G.n; i++)
-        // {
-        //     if (color[i] == BLACK)
-        //     {
-        //         printf("%d ", i);
-        //     }
-        // }
+        // printf("YES");
+        for (int i = 1; i <= G.n; i++)
+        {
+            if (color[i] == RED)
+            {
+                printf("%d ", i);
+            }
+        }
+        printf("\n");
+        for (int i = 1; i <= G.n; i++)
+        {
+            if (color[i] == BLACK)
+            {
+                printf("%d ", i);
+            }
+        }
     }
 }

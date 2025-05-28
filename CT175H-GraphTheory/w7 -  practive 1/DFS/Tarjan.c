@@ -119,7 +119,7 @@ int main(int argc, char const *argv[])
     // if (count == 1)
     //     printf("STRONG CONNECTED");
     // else
-    //     printf("STRONG CONNECTED");
+    //     printf("DISCONNECTED");
     //======
 
     printf("%d", count);
