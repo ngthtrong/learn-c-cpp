@@ -1,77 +1,96 @@
 #include <stdio.h>
-#include <limits.h>
+#define MAX 101
+#define oo 99999
+int d[MAX];
+int p[MAX];
+int c[MAX];
 
-#define MAXN 100
-#define MAXM 500
-#define INFINITY INT_MAX
-
-typedef struct {
-    int u, v, w;
-} Edge;
-
-typedef struct {
+typedef struct
+{
     int n, m;
-    Edge edges[MAXM];
+    int A[MAX][MAX];
 } Graph;
 
-void init_graph(Graph *G, int n) {
-    G->n = n;
-    G->m = 0;
-}
-
-void add_edge(Graph *G, int u, int v, int w) {
-    G->edges[G->m].u = u;
-    G->edges[G->m].v = v;
-    G->edges[G->m].w = w;
-    G->m++;
-}
-
-int pi[MAXN + 1];
-int p[MAXN + 1];
-
-void bellman_ford(Graph *G, int s) {
-    int i, j;
-    for (i = 1; i <= G->n; i++) {
-        pi[i] = INFINITY;
-        p[i] = -1;
-    }
-    pi[s] = 0;
-
-    for (i = 1; i < G->n; i++) {
-        for (j = 0; j < G->m; j++) {
-            int u = G->edges[j].u;
-            int v = G->edges[j].v;
-            int w = G->edges[j].w;
-            if (pi[u] != INFINITY && pi[u] + w < pi[v]) {
-                pi[v] = pi[u] + w;
-                p[v] = u;
+void bellman_ford(Graph const *G, int s)
+{
+    d[s] = 0;
+    for (int i = 1; i <= G->m; i++)
+    {
+        for (int u = 1; u <= G->n; u++)
+            for (int v = 1; v <= G->n; v++)
+            {
+                if (G->A[u][v] != 0 && u != v)
+                {
+                    if (d[v] > d[u] + G->A[u][v])
+                    {
+                        d[v] = d[u] + G->A[u][v];
+                        p[v] = u;
+                        c[v] = c[u];
+                    }
+                    else if (d[v] == d[u] + G->A[u][v])
+                        c[v] += c[u];
+                }
             }
-        }
     }
 }
 
-int main() {
+void printPath(int s, int t)
+{
+    if (t == s)
+        return;
+    printPath(s, p[t]);
+    printf(" -> %d", t);
+}
+
+int main()
+{
+    int n, m;
+    scanf("%d%d", &n, &m);
     Graph G;
-    int n, m, i;
-    scanf("%d %d", &n, &m);
-    init_graph(&G, n);
-
-    for (i = 0; i < m; i++) {
-        int u, v, w;
-        scanf("%d %d %d", &u, &v, &w);
-        add_edge(&G, u, v, w);
+    G.n = n;
+    G.m = m;
+    for (int i = 1; i <= n; i++)
+    {
+        d[i] = oo;
+        p[i] = -1;
+        c[i] = 1;
+        for (int j = 1; j <= n; j++)
+            G.A[i][j] = 0;
     }
-
-    int s, t;
-    scanf("%d %d", &s, &t);
-
-    bellman_ford(&G, s);
-
-    if (pi[t] == INFINITY) {
-        printf("-1\n");
-    } else {
-        printf("%d\n", pi[t]);
+    for (int i = 1; i <= m; i++)
+    {
+        int u;
+        int v;
+        int w;
+        scanf("%d%d%d", &u, &v, &w);
+        G.A[u][v] = w;
+        G.A[v][u] = w;
+        if (u == 1)
+            c[v] = 1;
+        if (v == 1)
+            c[u] = 1;
     }
-
-    return 0;
+    // int s,t;
+    // scanf("%d%d",&s,&t);
+    bellman_ford(&G, 1);
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     for (int j = 1; j <= n; j++)
+    //     {
+    //         printf("%d ", G.A[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    if (d[n] == oo)
+        printf("-1 0");
+    else
+        printf("%d %d", d[n], c[n]);
+    //===
+    // printf("%d",s);
+    // printPath(s,t);
+    //===
+    // for (int i = 1; i <= G.n; i++)
+    // {
+    //     printf("pi[%d] = %d, p[%d] = %d\n", i, d[i], i, p[i]);
+    // }
 }

@@ -10,14 +10,125 @@ typedef struct
 
 void scanBigNum(BigInt *number, char c)
 {
-    char num[1000];
-    printf("Enter %c:      ", c);
-    fgets(num, 1000, stdin);
-    if (num[strlen(num) - 1] == '\n')
-        num[strlen(num) - 1] = '\0';
-    number->digits = (char *)malloc(strlen(num) + 1);
-    strcpy(number->digits, num);
-    number->length = strlen(number->digits);
+    // Read input in chunks for better efficiency
+    const int CHUNK_SIZE = 8192;
+
+    // Use a linked list of chunks approach for virtually unlimited input size
+    typedef struct ChunkNode
+    {
+        char data[CHUNK_SIZE];
+        int used;            // Number of characters used in this chunk
+        struct ChunkNode *next;
+    } ChunkNode;
+
+    ChunkNode *head = NULL, *tail = NULL;
+    size_t totalSize = 0;
+
+    // Read input in chunks
+    while (!feof(stdin))
+    {
+        ChunkNode *newNode = (ChunkNode *)malloc(sizeof(ChunkNode));
+        if (!newNode)
+        {
+            fprintf(stderr, "Memory allocation failed for input chunk\n");
+            exit(1);
+        }
+
+        // Read a chunk of data
+        size_t bytesRead = fread(newNode->data, 1, CHUNK_SIZE - 1, stdin);
+        if (bytesRead == 0)
+        {
+            free(newNode);
+            break;
+        }
+
+        // Process the chunk to find newline
+        int newlinePos = -1;
+        for (int i = 0; i < bytesRead; i++)
+        {
+            if (newNode->data[i] == '\n')
+            {
+                newlinePos = i;
+                break;
+            }
+        }
+
+        // If found newline, adjust bytes used
+        if (newlinePos != -1)
+        {
+            newNode->used = newlinePos;
+            totalSize += newlinePos;
+
+            // Position file pointer after newline
+            long offset = newlinePos + 1 - bytesRead;
+            fseek(stdin, offset, SEEK_CUR);
+        }
+        else
+        {
+            newNode->used = bytesRead;
+            totalSize += bytesRead;
+        }
+
+        // Add to linked list
+        newNode->next = NULL;
+        if (!head)
+        {
+            head = tail = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+        }
+
+        // If we found newline, stop reading
+        if (newlinePos != -1)
+            break;
+    }
+
+    // Allocate exactly the right amount of memory for the number
+    number->digits = (char *)malloc(totalSize + 1);
+    if (!number->digits)
+    {
+        fprintf(stderr, "Memory allocation failed for final number\n");
+        exit(1);
+    }
+
+    // Copy all chunks to the final buffer
+    char *pos = number->digits;
+    ChunkNode *current = head;
+    while (current)
+    {
+        memcpy(pos, current->data, current->used);
+        pos += current->used;
+
+        ChunkNode *temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    // Null terminate and set length
+    *pos = '\0';
+    number->length = totalSize;
+
+    // Remove trailing newline if present
+    if (number->length > 0 && number->digits[number->length - 1] == '\n')
+    {
+        number->digits[--number->length] = '\0';
+    }
+
+    // Validate input - ensure only valid digits and possibly a leading minus sign
+    for (int i = 0; i < number->length; i++)
+    {
+        if (i == 0 && number->digits[i] == '-')
+            continue;
+        if (number->digits[i] < '0' || number->digits[i] > '9')
+        {
+            fprintf(stderr, "Invalid character in number: %c\n", number->digits[i]);
+            free(number->digits);
+            exit(1);
+        }
+    }
 }
 
 void printBigNum(BigInt number)
@@ -96,13 +207,13 @@ int main()
     scanBigNum(&a, 'a');
     BigInt b;
     scanBigNum(&b, 'b');
-    printf("a + b = ");
-    BigInt sumNum = sum(a, b);
-    printBigNum(sumNum);
-    printf("a - b = ");
-    BigInt subNum = sub(a, b);
-    printBigNum(subNum);
-    printf("a * b = ");
+    // printf("a + b = ");
+    // BigInt sumNum = sum(a, b);
+    // printBigNum(sumNum);
+    // printf("a - b = ");
+    // BigInt subNum = sub(a, b);
+    // printBigNum(subNum);
+    // printf("a * b = ");
     BigInt mulNum = mul(a, b);
     printBigNum(mulNum);
 
@@ -237,7 +348,7 @@ BigInt mul(BigInt a, BigInt b)
     a = copyBigInt(a);
     b = copyBigInt(b);
 
-    if ((a.digits[0] == '0' &&a.length == 1) || (b.digits[0] == '0' &&b.length == 1)) //handle 0 case
+    if ((a.digits[0] == '0' && a.length == 1) || (b.digits[0] == '0' && b.length == 1)) //handle 0 case
     {
         BigInt result;
         result.digits = (char *)malloc(sizeof(char) * 2);

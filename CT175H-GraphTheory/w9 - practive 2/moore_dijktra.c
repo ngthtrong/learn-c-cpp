@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_SIZE 100
-#define VISITTED 1
+#define VISITED 1
 
-#define UNVISITTED 0
+#define UNVISITED 0
 #define oo 999
 
 typedef int ElementType;
@@ -54,6 +54,7 @@ int mark[MAX_SIZE + 1];
 int status[MAX_SIZE + 1];
 int parent[MAX_SIZE + 1];
 int d[MAX_SIZE + 1];
+int c[MAX_SIZE + 1];
 typedef struct
 {
     int m, n;
@@ -63,13 +64,14 @@ typedef struct
 void moore_dijkstra(Graph *g, int s)
 {
     d[s] = 0;
+    // c[s] = 0;
     Queue q;
     makeNull(&q);
     enQueue(s, &q);
     while (!emptyQueue(q))
     {
         int u = deQueue(&q);
-        // mark[u] = VISITTED;
+        // mark[u] = VISITED;
         for (int v = 1; v <= g->n; v++)
         {
             if (u != v && g->A[u][v] >= 0)
@@ -78,8 +80,13 @@ void moore_dijkstra(Graph *g, int s)
                 {
                     d[v] = d[u] + g->A[u][v];
                     parent[v] = u;
+                    c[v] = c[u];
+
                     enQueue(v, &q);
                 }
+                else if (d[v] == d[u] + g->A[u][v] && parent[v] != u)
+                    // printf("%d  %d %d\n",)
+                    c[v] += c[u];
             }
         }
     }
@@ -105,8 +112,9 @@ int main(int argc, char const *argv[])
     for (int i = 0; i <= G.n; i++)
     {
         parent[i] = -1;
-        mark[i] = UNVISITTED;
+        mark[i] = UNVISITED;
         d[i] = oo;
+        c[i] = 1;
         for (int j = 0; j <= G.n; j++)
             G.A[i][j] = -1;
     }
@@ -116,21 +124,30 @@ int main(int argc, char const *argv[])
         scanf("%d%d%d", &u, &v, &w);
         G.A[u][v] = w;
         G.A[v][u] = w;
+        // if (u == 1)
+        //     c[v] = 1;
+        // if (v == 1)
+        //     c[u] = 1;
     }
-    int s, t;
-    scanf("%d%d", &s, &t);
-    moore_dijkstra(&G, s);
+    // int s, t;
+    // scanf("%d%d", &s, &t);
+    moore_dijkstra(&G, 1);
 
     // for (int i = 1; i <= G.n; i++)
     // {
     //     printf("pi[%d] = %d, p[%d] = %d\n", i, d[i], i, parent[i]);
     // }
     //===
-    // if (d[n] == oo)
+    // if (d[t] == oo)
     //     printf("-1");
     // else
-    //     printf("%d", d[n]);
+    //     printf("%d", d[t]);
     //===
-    printf("%d", s);
-    printPath(s, t);
+    // printf("%d", s);
+    // printPath(s, t);
+    //===
+    if (d[n] == oo)
+        printf("-1 0");
+    else
+        printf("%d %d", d[n], c[n]);
 }
