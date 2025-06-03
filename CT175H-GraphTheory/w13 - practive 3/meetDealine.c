@@ -11,7 +11,6 @@ typedef struct
     int n;
     int A[MAX_SIZE][MAX_SIZE];
 } Graph;
-// int maxx;
 void toPoDFS(Graph *g, int u, int c)
 {
     mark[u] = 1;
@@ -45,20 +44,14 @@ void toPoDFS2(Graph *g, int u, int c)
 int myMax(int *a, int n)
 {
     int max = 0;
-    // int index;
     for (int i = 1; i <= n; i++)
         if (max < a[i])
-        {
             max = a[i];
-            // index = i;
-        }
-    // maxx = index;
     return max;
 }
 
 int main(int argc, char const *argv[])
 {
-    // freopen("dt.txt", "r", stdin); // Khi nộp bài nhớ bỏ dòng này.
     Graph G;
     int n;
     scanf("%d", &n);
@@ -79,6 +72,10 @@ int main(int argc, char const *argv[])
             G.A[temp][i] = temp;
         }
     }
+
+    // int u, t;
+    // scanf("%d%d", &u, &t);
+
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             if (G.A[i][j] > 0)
@@ -97,7 +94,6 @@ int main(int argc, char const *argv[])
     for (int i = 0; i <= n; i++)
         mark[i + 1] = 0;
     count = myMax(min, n);
-    // maxx = d[maxx] + count;
     // get max
     for (int i = 1; i <= n; i++)
         if (mark[i] == 0)
@@ -105,32 +101,13 @@ int main(int argc, char const *argv[])
             toPoDFS2(&G, i, count);
             count -= d[i];
         }
-    // printf("%d\n", maxx);
-    for (int i = 1; i <= n; i++)
-        // printf("%d %d\n", min[i], max[i]);
-        printf("%d-%d\n", min[i], max[i]);
-    // printf("%d-%d\n", 0, 0);
-    // printf("%d-%d\n",maxx, maxx);
-}
-// Graph 1 matrix:
-// 1 2 7
-// 2 3 3
-// 1 4 7
-// 3 5 1
-// 4 5 8
-// 3 6 1
-// 4 6 8
-// 3 7 1
-// 4 7 8
-// 6 8 1
-// 8 9 2
-// 5 10 2
-// 7 10 1
-// 9 10 2
 
-// for (int i = 0; i < n; i++)
-// {
-//     for (int j = 0; j < n; j++)
-//         printf("%d ", G.A[i + 1][j + 1]);
-//     printf("\n");
-// }
+    // if (t <= max[u] && t >= min[u])
+    //     printf("YES");
+    // else
+    //     printf("NO");
+
+    for (int i = 1; i <= n + 2; i++)
+        if (max[i] == min[i]||i==n+2||i==n+1)
+            printf("%d\n", i);
+}
