@@ -7,7 +7,10 @@
 int mark[MAX_SIZE + 1];
 int parent[MAX_SIZE + 1];
 int d[MAX_SIZE + 1];
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
 typedef struct
 {
     int m, n;
@@ -46,11 +49,19 @@ int prim(Graph *g, int s)
 void printPath(Graph *g, int u)
 {
     for (int i = 1; i <= g->n; i++)
+<<<<<<< HEAD
+=======
+    {
+>>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
         if (i != u && parent[i] == u)
         {
             printf("%d %d %d\n", u, i, g->A[u][i]);
             printPath(g, i);
         }
+<<<<<<< HEAD
+=======
+    }
+>>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
 }
 
 int main(int argc, char const *argv[])
