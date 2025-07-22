@@ -10,7 +10,6 @@ typedef struct
     int A[MAX][MAX];
 } Graph;
 
-<<<<<<< HEAD
 // Floyd-Warshall: Thuật toán QUY HOẠCH ĐỘNG
 // Công thức truy hồi: d[i][j] = min(d[i][j], d[i][k] + d[k][j])
 // Trạng thái: d[i][j] = khoảng cách ngắn nhất từ i đến j qua các đỉnh trung gian từ 1 đến k
@@ -20,22 +19,13 @@ void floyd_warshall(Graph const *G)
     for (int k = 1; k <= G->n; k++)
     {
         // Với mỗi k, cập nhật tất cả các cặp (i,j)
-=======
-void floyd_warshall(Graph const *G)
-{
-    for (int k = 1; k <= G->n; k++)
-    {
->>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
         for (int i = 1; i <= G->n; i++)
             for (int j = 1; j <= G->n; j++)
             {
                 if (d[i][k] != oo && d[k][j] != oo)
                 {
-<<<<<<< HEAD
                     // CÔNG THỨC QUY HOẠCH ĐỘNG
                     // d[i][j] = min(đường cũ, đường mới qua k)
-=======
->>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
                     if (d[i][j] > d[i][k] + d[k][j])
                     {
                         d[i][j] = d[i][k] + d[k][j];

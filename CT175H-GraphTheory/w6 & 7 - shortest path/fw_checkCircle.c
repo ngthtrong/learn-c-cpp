@@ -72,8 +72,7 @@ int main()
         d[u][v] = w;
     }
     floyd_warshall(&G);
-    if (
-        check(&G))
+    if (check(&G))
         printf("YES");
     else
         printf("NO");

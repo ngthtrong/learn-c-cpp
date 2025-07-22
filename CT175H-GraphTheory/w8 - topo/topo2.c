@@ -46,26 +46,24 @@ ElementType deQueue(Queue *q)
     exit(EXIT_FAILURE);
 }
 
-int in_degree[MAX_SIZE + 1];
-Queue q;
+#define M 100
 typedef struct
 {
     int m, n;
-    int e[MAX_SIZE][MAX_SIZE];
+    int A[M][M];
 } Graph;
-
-void topoBFS(Graph *pg)
+int in_degree[M];
+Queue q;
+void topoSort(Graph *g)
 {
-
     while (!emptyQueue(q))
     {
-        int s = deQueue(&q);
-        printf("%d ", s);
-        for (int i = 1; i <= pg->n; i++)
+        int u = deQueue(&q);
+        printf("%d ", u);
+        for (int i = 1; i <= g->n; i++)
         {
-            if (pg->e[s][i] != 0 && i != s)
+            if (g->A[u][i] == 1)
             {
-                // in_degree[i] --;
                 if (--in_degree[i] == 0)
                     enQueue(i, &q);
             }
@@ -73,34 +71,41 @@ void topoBFS(Graph *pg)
     }
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
-    // freopen("dt.txt", "r", stdin); // Khi nộp bài nhớ bỏ dòng này.
     Graph G;
-    int n, m;
+    int m, n;
     scanf("%d%d", &n, &m);
-    G.m = m;
     G.n = n;
+    G.m = m;
 
-    for (int i = 1; i <= G.n; i++)
+    // Khởi tạo
+    for (int i = 1; i <= n; i++)
     {
+        for (int j = 1; j <= n; j++)
+        {
+            G.A[i][j] = 0;
+        }
         in_degree[i] = 0;
-        for (int j = 0; j < G.n; j++)
-            G.e[i][j] = 0;
     }
 
     for (int i = 1; i <= m; i++)
     {
         int u, v;
         scanf("%d%d", &u, &v);
-        G.e[u][v] = 1;
+        G.A[u][v] = 1;
         in_degree[v]++;
     }
     makeNull(&q);
+
     for (int i = 1; i <= n; i++)
     {
         if (in_degree[i] == 0)
+        {
             enQueue(i, &q);
+        }
     }
-    topoBFS(&G);
+    topoSort(&G);
+
+    return 0;
 }
