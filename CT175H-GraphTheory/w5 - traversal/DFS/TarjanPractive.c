@@ -75,11 +75,8 @@ void SCC(Graph *pg, int u)
             min_num[u] = num[i] > min_num[u] ? min_num[u] : num[i];
         }
     }
-
     if (num[u] == min_num[u])
-    {
         count++;
-    }
 }
 
 int main(int argc, char const *argv[])

@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 100
-<<<<<<< HEAD
-=======
 #define VISITTED 1
 #define UNVISITTED 0
->>>>>>> 9d0f63368273b9117f9da1ec1084db33fbde0d66
 
 typedef int ElementType;
 typedef struct NodeStack
