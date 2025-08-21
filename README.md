@@ -44,9 +44,9 @@ learn-c-cpp/
 │   ├── w8 - topo/                # Tuần 8 - Sắp xếp topo
 │   ├── w9 - tree/                # Tuần 9 - Cây khung tối thiểu
 │   └── w11 - flow/               # Tuần 11 - Luồng cực đại
-└── CT287-ModelChecking/          # Kiểm chứng mô hình
+└── CT287H-ModelChecking/          # Kiểm chứng mô hình
     ├── 
-    
+
 ```
 
 ## 🚀 Cách chạy code
